@@ -1,0 +1,52 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+apply from: 'buildsystem/ci.gradle'
+apply from: 'buildsystem/dependencies.gradle'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+    }
+}
+
+allprojects {
+
+    repositories {
+        jcenter()
+        maven {url "http://172.16.3.71:8080/nexus/content/repositories/releases/"}
+        maven {
+            url "http://maven.bughd.com/public"
+        }
+    }
+    ext {
+        androidApplicationId = 'com.jc.android.app.template'
+        androidVersionCode = 1
+        androidVersionName = "1.0"
+
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testApplicationId = 'com.jc.android.app.template.test'
+    }
+}
+
+task wrapper(type: Wrapper) {
+    description 'Creates the gradle wrapper.'
+    gradleVersion '2.9'
+}
+
+//task runDemoUnitTests(dependsOn: [':demo:testDebugUnitTest']) {
+//    description 'Run unit tests for the Demo.'
+//}
+//
+//task runBaseUnitTests(dependsOn: [':jcmp_base:clean', ':jcmp_base:testDebugUnitTest']) {
+//    description 'Run unit tests for the Jcmp_Base.'
+//}
+//
+//task runUnitTests(dependsOn: ['runBaseUnitTests', 'runDemoUnitTests']) {
+//    description 'Run unit tests for both base and demo.'
+//}
+//
+//task runAcceptanceTests(dependsOn: [':demo:connectedAndroidTest']) {
+//    description 'Run application acceptance tests.'
+//}

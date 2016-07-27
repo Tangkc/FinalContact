@@ -1,0 +1,78 @@
+apply plugin: 'com.android.library'
+apply from:'../maven_push.gradle'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("androidCompileSdkVersion")
+    buildToolsVersion globalConfiguration.getAt("androidBuildToolsVersion")
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.getAt("androidMinSdkVersion")
+        targetSdkVersion globalConfiguration.getAt("androidTargetSdkVersion")
+        versionCode globalConfiguration.getAt("androidVersionCode")
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    packagingOptions {
+        exclude 'LICENSE.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+    }
+
+    lintOptions {
+        quiet true
+        abortOnError false
+        ignoreWarnings true
+        disable 'InvalidPackage'  // Some libraries have issues with this
+        disable 'OldTargetApi'    // Due to Robolectric that modifies the manifest when running tests
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    def baseDependencies = rootProject.ext.baseDependencies
+    def baseTestDependencies = rootProject.ext.baseTestDependencies
+
+
+    compile baseDependencies.okHttpLogging
+    compile baseDependencies.gson
+    compile baseDependencies.rxJava
+    compile baseDependencies.rxAndroid
+    compile baseDependencies.androidSupportV7
+    compile baseDependencies.androidAnnotations
+    compile baseDependencies.retrofit
+    compile baseDependencies.retrofitGson
+    compile baseDependencies.retrofitRxJava
+    compile baseDependencies.stetho
+    compile baseDependencies.stethoOkHttp
+    compile baseDependencies.recyclerView
+    compile baseDependencies.jcbase
+    compile baseDependencies.jcconfig
+    compile baseDependencies.login
+    compile baseDependencies.okHttpUrlconnection
+
+
+    androidTestCompile baseTestDependencies.mockito
+    androidTestCompile baseTestDependencies.dexmaker
+    androidTestCompile baseTestDependencies.dexmakerMockito
+    androidTestCompile baseTestDependencies.espresso
+    androidTestCompile baseTestDependencies.espressoIntent
+    androidTestCompile baseTestDependencies.espressoContrib
+
+//  androidTestCompile baseTestDependencies.testingSupportLib
+    androidTestCompile baseTestDependencies.runner
+    androidTestCompile baseTestDependencies.rules
+    androidTestCompile baseTestDependencies.androidAnnotations
+    androidTestCompile baseTestDependencies.robolectric
+
+}

@@ -1,0 +1,81 @@
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+ext {
+    //Android
+    androidBuildToolsVersion = "23.0.1"
+    androidMinSdkVersion = 19
+    androidTargetSdkVersion = 23
+    androidCompileSdkVersion = 23
+
+    //Libraries
+    recyclerViewVersion = '23.0.1'
+    rxJavaVersion = '1.0.14'
+    rxAndroidVersion = '1.0.1'
+    gsonVersion = '2.4'
+    okHttpLoggingVersion = '3.4.0'
+    androidAnnotationsVersion = '23.0.1'
+    androidSupportV7Version = '23.0.1'
+    stethoVersion = '1.3.1'
+    stethoOkHttpVersion = '1.3.1'
+    retrofitVersion = '2.0.1'
+    retrofitGsonVersion = '2.0.1'
+    retrofitRxJavaVersion = '2.1.0'
+    jcbaseVersion = '0.2.2'
+    loginVersion = '1.1.2'
+    configVersion = '1.0.2'
+    lombokVersion = '1.16.8'
+
+    //Testing
+    robolectricVersion = '3.0'
+    jUnitVersion = '4.12'
+    assertJVersion = '1.7.1'
+    mockitoVersion = '1.9.5'
+    dexmakerVersion = '1.0'
+    runnerVersion = "0.4.1"
+    rulesVersion = "0.4.1"
+    espressoVersion = "2.2.1"
+    espressoIntentVersion = espressoVersion
+    espressoContrib = espressoVersion
+
+    baseDependencies = [
+            okHttpUrlconnection: "com.squareup.okhttp3:okhttp-urlconnection:3.2.0",
+            okHttpLogging      : "com.squareup.okhttp3:logging-interceptor:${okHttpLoggingVersion}",
+            gson               : "com.google.code.gson:gson:${gsonVersion}",
+            rxJava             : "io.reactivex:rxjava:${rxJavaVersion}",
+            rxAndroid          : "io.reactivex:rxandroid:${rxAndroidVersion}",
+            androidSupportV7   : "com.android.support:appcompat-v7:${androidSupportV7Version}",
+            androidAnnotations : "com.android.support:support-annotations:${androidAnnotationsVersion}",
+            retrofit           : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitGson       : "com.squareup.retrofit2:converter-gson:${retrofitGsonVersion}",
+            retrofitRxJava     : "com.squareup.retrofit2:adapter-rxjava:${retrofitRxJavaVersion}",
+            stetho             : "com.facebook.stetho:stetho:${stethoVersion}",
+            stethoOkHttp       : "com.facebook.stetho:stetho-okhttp3:${stethoOkHttpVersion}",
+            recyclerView       : "com.android.support:recyclerview-v7:${recyclerViewVersion}",
+            jcbase             : "com.jc.android:jc-base:${jcbaseVersion}",
+            login              : "com.jc.android:login:${loginVersion}",
+            jcconfig             : "com.jc.android:jcconfig:${configVersion}",
+            lombok             : "org.projectlombok:lombok:${lombokVersion}",
+    ]
+
+    baseTestDependencies = [
+            junit             : "junit:junit:${jUnitVersion}",
+            assertj           : "org.assertj:assertj-core:${assertJVersion}",
+            mockito           : "org.mockito:mockito-core:${mockitoVersion}",
+            robolectric       : "org.robolectric:robolectric:${robolectricVersion}",
+
+            dexmaker          : "com.google.dexmaker:dexmaker:${dexmakerVersion}",
+            dexmakerMockito   : "com.google.dexmaker:dexmaker-mockito:${dexmakerVersion}",
+            espresso          : "com.android.support.test.espresso:espresso-core:${espressoVersion}",
+            espressoIntent    : "com.android.support.test.espresso:espresso-intents:${espressoIntentVersion}",
+            espressoContrib   : "com.android.support.test.espresso:espresso-contrib:${espressoContrib}",
+            runner            : "com.android.support.test:runner:${runnerVersion}",
+            rules             : "com.android.support.test:rules:${rulesVersion}",
+            // Force usage of support annotations in the test app, since it is internally used by the runner module.
+            androidAnnotations: "com.android.support:support-annotations:${androidAnnotationsVersion}",
+
+    ]
+}
