@@ -18,9 +18,8 @@ public class HomeViewModel extends ViewModel {
 		return new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-
 				Intent intent = LoginActivity.getCallingIntent(App.instance().getCurrentActivity(),
-						"com.jc.android.mail.presentation.view.activity.MailListActivity",
+						"android.intent.action.mydialog",
 						"android/system/login4M.action");
 				ActivityNavigator.to(LoginActivity.class, intent);
 			}

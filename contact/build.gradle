@@ -60,6 +60,7 @@ dependencies {
     compile baseDependencies.jcconfig
     compile baseDependencies.login
     compile baseDependencies.okHttpUrlconnection
+    compile baseDependencies.fresco
 
 
     androidTestCompile baseTestDependencies.mockito

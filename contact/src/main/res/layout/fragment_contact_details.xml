@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+
+    <data class="com.jc.android.template.presentation.DemoDetailsBinding">
+
+        <variable
+            name="viewModel"
+            type="com.jc.android.template.presentation.viewmodel.ContactDetailsViewModel"/>
+    </data>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<!-- include标签里除了设置绑定variable外 不能绑定其它属性，会报错-->
+  <include
+      layout="@layout/view_contact_details"
+      bind:viewModel="@{viewModel}"
+      />
+
+  <include
+      layout="@layout/view_progress"
+      bind:viewModel="@{viewModel}"
+      />
+
+  <include
+      layout="@layout/view_retry"
+      bind:viewModel="@{viewModel}"
+      />
+
+</RelativeLayout>
+
+</layout>

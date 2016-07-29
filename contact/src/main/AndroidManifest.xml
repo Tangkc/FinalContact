@@ -18,12 +18,17 @@
     </activity>
 
     <activity
-        android:name="com.jc.android.template.presentation.view.activity.DemoListActivity"
+        android:name="com.jc.android.template.presentation.view.activity.ContactListActivity"
         android:label="@string/activity_title_user_list">
+      <intent-filter>
+        <!--配置action路径-->
+        <action android:name="android.intent.action.mydialog" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
     </activity>
 
     <activity
-        android:name="com.jc.android.template.presentation.view.activity.DemoDetailsActivity"
+        android:name="com.jc.android.template.presentation.view.activity.ContactDetailsActivity"
         android:label="@string/activity_title_user_details">
     </activity>
   </application>
