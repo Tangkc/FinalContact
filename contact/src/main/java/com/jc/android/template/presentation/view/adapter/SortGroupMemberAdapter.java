@@ -46,7 +46,7 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 		return position;
 	}
 
-	// TODO: 2016/7/29 头像加载未完成 
+	// TODO: 2016/7/29 头像加载未完成
 	public View getView(final int position, View view, ViewGroup arg2) {
 		ViewHolder viewHolder = null;
 		final ContactModel mContent = list.get(position);

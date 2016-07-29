@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.jc.android.base.presentation.viewmodel.LoadingViewModel;
 import com.jc.android.base.domain.interactor.UseCase;
 import com.jc.android.base.presentation.App;
+import com.jc.android.logon.domain.interactor.GetUser;
 import com.jc.android.template.data.entity.ContactEntity;
 import com.jc.android.template.domain.interactor.GetContactList;
 import com.jc.android.template.presentation.mapper.ContactModelDataMapper;
@@ -62,6 +63,7 @@ public class ContactListViewModel extends LoadingViewModel {
     private TextView title;
     GetContactList getUserList = new GetContactList(App.context());
     ContactModelDataMapper demoModelDataMapper = new ContactModelDataMapper();
+    GetUser getUser=new GetUser(App.context());
 
 
     @BindView
@@ -103,6 +105,7 @@ public class ContactListViewModel extends LoadingViewModel {
             return;
         }
         showLoading();
+        getUserList.setId(getUser.buildUseCaseObservable().getId()+"");
         getUserList.execute(new ProcessErrorSubscriber<List<ContactEntity>>(App.context()) {
             @Override
             public void onNext(List<ContactEntity> demos) {

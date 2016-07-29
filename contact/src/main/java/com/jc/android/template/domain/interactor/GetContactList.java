@@ -46,7 +46,7 @@ public class GetContactList extends UseCase {
 
 	@Override
 	public Observable buildUseCaseObservable() {
-		return this.userRepository.getPeoples(1+"");
+		return this.userRepository.getPeoples(this.id);
 	}
 
 	public String getId() {
