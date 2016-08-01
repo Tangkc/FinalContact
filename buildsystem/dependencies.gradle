@@ -25,10 +25,9 @@ ext {
     retrofitGsonVersion = '2.0.1'
     retrofitRxJavaVersion = '2.1.0'
     jcbaseVersion = '0.2.2'
-    loginVersion = '1.1.2'
+    loginVersion = '1.1.4'
     configVersion = '1.0.2'
     lombokVersion = '1.16.8'
-    frescoVersion = '0.10.0+'
     //Testing
     robolectricVersion = '3.0'
     jUnitVersion = '4.12'
@@ -59,7 +58,6 @@ ext {
             login              : "com.jc.android:login:${loginVersion}",
             jcconfig           : "com.jc.android:jcconfig:${configVersion}",
             lombok             : "org.projectlombok:lombok:${lombokVersion}",
-            fresco             : "com.facebook.fresco:fresco:${frescoVersion}",
     ]
 
     baseTestDependencies = [

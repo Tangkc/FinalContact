@@ -26,7 +26,6 @@ public class ContactListFragment extends BaseFragment<ContactListViewModel, Demo
     public final static String TAG = ContactListFragment.class.getSimpleName();
 
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -44,7 +43,7 @@ public class ContactListFragment extends BaseFragment<ContactListViewModel, Demo
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getViewModel().mClearEditTextClick(getBinding().filterEdit);
-        getViewModel().loadUsersCommand(getBinding().countryLvcountry,getBinding().titleLayoutCatalog,getBinding().titleLayout);
+        getViewModel().loadUsersCommand(getBinding().countryLvcountry, getBinding().titleLayoutCatalog, getBinding().titleLayout);
     }
 
     @Override

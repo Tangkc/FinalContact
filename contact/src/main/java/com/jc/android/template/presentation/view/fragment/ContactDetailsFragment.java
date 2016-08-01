@@ -25,20 +25,26 @@ public class ContactDetailsFragment extends BaseFragment<ContactDetailsViewModel
 
 	public final static String TAG = ContactDetailsFragment.class.getSimpleName();
 
-	private static final String ARGUMENT_KEY_USER_ID = "org.android10.ARGUMENT_USER_ID";
+	private static final String ARGUMENT_KEY_DISPLAYNAME = "org.android10.ARGUMENT_DISPLAYNAME";
+	private static final String ARGUMENT_KEY_MOBILE = "org.android10.ARGUMENT_MOBILE";
+	private static final String ARGUMENT_KEY_PHOTO = "org.android10.ARGUMENT_PHOTO";
 
-	private String userId;
+	private String displayName;
+	private String mobile;
+	private String photo;
 
 	public ContactDetailsFragment() {
 		super();
 
 	}
 
-	public static ContactDetailsFragment newInstance(int userId) {
+	public static ContactDetailsFragment newInstance(String displayName,String mobile,String photo) {
 		ContactDetailsFragment demoDetailsFragment = new ContactDetailsFragment();
 
 		Bundle argumentsBundle = new Bundle();
-		argumentsBundle.putInt(ARGUMENT_KEY_USER_ID, userId);
+		argumentsBundle.putString(ARGUMENT_KEY_DISPLAYNAME, displayName);
+		argumentsBundle.putString(ARGUMENT_KEY_MOBILE, mobile);
+		argumentsBundle.putString(ARGUMENT_KEY_PHOTO, photo);
 		demoDetailsFragment.setArguments(argumentsBundle);
 
 		return demoDetailsFragment;
@@ -82,9 +88,12 @@ public class ContactDetailsFragment extends BaseFragment<ContactDetailsViewModel
 	}
 
 	private void initialize() {
-		this.userId = getArguments().getString(ARGUMENT_KEY_USER_ID);
+		this.displayName = getArguments().getString(ARGUMENT_KEY_DISPLAYNAME);
+		this.mobile = getArguments().getString(ARGUMENT_KEY_MOBILE);
+		this.photo = getArguments().getString(ARGUMENT_KEY_PHOTO);
 
-		getViewModel().loadUserDetailsCommand(userId);
+
+		getViewModel().loadUserDetailsCommand(displayName,mobile,photo);
 	}
 
 	@Override

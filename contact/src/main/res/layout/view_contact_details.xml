@@ -1,22 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:bind="http://schemas.android.com/apk/res-auto">
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    >
 
     <data parent="@">
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
-            type="com.jc.android.template.presentation.viewmodel.ContactDetailsViewModel"/>
+            type="com.jc.android.template.presentation.viewmodel.ContactDetailsViewModel" />
 
     </data>
 
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    bind:visibility="@{viewModel.showUserDetails?View.VISIBLE:View.GONE}"
-    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        bind:visibility="@{viewModel.showUserDetails?View.VISIBLE:View.GONE}">
 
-</LinearLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/fragment_contact_photo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/ic_launcher"
+              />
+
+            <TextView
+                android:id="@+id/fragment_contace_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="15dp"
+                android:layout_toRightOf="@+id/fragment_contact_photo"
+                android:textColor="#000000"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:text="@={viewModel.contactObs.displayName}"/>
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:textColor="#0099CC"
+            android:layout_marginLeft="16dp"
+            android:text="手机:" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginRight="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/fragment_contact_callPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@={viewModel.contactObs.mobile}"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_weight="10"
+               />
+            <ImageView
+                android:id="@+id/fragment_contact_mail"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/bottom2"
+                android:layout_weight="1"
+                bind:onClickListener="@{viewModel.onSentMail}"
+                />
+            <ImageView
+                android:id="@+id/fragment_contact_tell"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/workflow_phone"
+                android:layout_marginLeft="8dp"
+                bind:onClickListener="@{viewModel.onCallPhone}"
+                />
+        </LinearLayout>
+    </LinearLayout>
 
 </layout>

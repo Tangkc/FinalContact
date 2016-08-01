@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.jc.android.module.contact">
 
+
+  <uses-permission android:name="android.permission.SEND_SMS" />
+  <uses-permission android:name="android.permission.CALL_PHONE" />
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -12,19 +15,11 @@
       android:label="@string/app_name"
       android:theme="@style/AppTheme">
 
-    <activity
-        android:name="com.jc.android.demo.presentation.view.activity.MainActivity"
-        android:label="@string/app_name">
-    </activity>
 
     <activity
         android:name="com.jc.android.template.presentation.view.activity.ContactListActivity"
         android:label="@string/activity_title_user_list">
-      <intent-filter>
-        <!--配置action路径-->
-        <action android:name="android.intent.action.mydialog" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
+
     </activity>
 
     <activity

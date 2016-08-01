@@ -2,6 +2,7 @@ package com.jc.android.template.presentation.viewmodel;
 
 
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.os.Build;
@@ -25,6 +26,7 @@ import com.jc.android.template.data.entity.ContactEntity;
 import com.jc.android.template.domain.interactor.GetContactList;
 import com.jc.android.template.presentation.mapper.ContactModelDataMapper;
 import com.jc.android.template.presentation.model.ContactModel;
+import com.jc.android.template.presentation.view.activity.ContactDetailsActivity;
 import com.jc.android.template.presentation.wigth.CharacterParser;
 import com.jc.android.template.presentation.wigth.ClearEditText;
 import com.jc.android.template.presentation.wigth.PinyinComparator;
@@ -63,7 +65,7 @@ public class ContactListViewModel extends LoadingViewModel {
     private TextView title;
     GetContactList getUserList = new GetContactList(App.context());
     ContactModelDataMapper demoModelDataMapper = new ContactModelDataMapper();
-    GetUser getUser=new GetUser(App.context());
+    GetUser getUser = new GetUser(App.context());
 
 
     @BindView
@@ -105,7 +107,7 @@ public class ContactListViewModel extends LoadingViewModel {
             return;
         }
         showLoading();
-        getUserList.setId(getUser.buildUseCaseObservable().getId()+"");
+        getUserList.setId(getUser.buildUseCaseObservable().getId() + "");
         getUserList.execute(new ProcessErrorSubscriber<List<ContactEntity>>(App.context()) {
             @Override
             public void onNext(List<ContactEntity> demos) {
@@ -174,9 +176,13 @@ public class ContactListViewModel extends LoadingViewModel {
         return new ListView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 Toast.makeText(App.instance().getCurrentActivity(),
                         ((ContactModel) adapter.get().getItem(position)).getDisplayName(),
                         Toast.LENGTH_SHORT).show();
+                Intent intent = ContactDetailsActivity.getCallingIntent(App.instance().getCurrentActivity(), ((ContactModel) adapter.get().getItem(position)).getDisplayName(),
+                        ((ContactModel) adapter.get().getItem(position)).getMobile(), ((ContactModel) adapter.get().getItem(position)).getPhoto());
+                App.instance().getCurrentActivity().startActivity(intent);
             }
         };
     }
@@ -197,6 +203,7 @@ public class ContactListViewModel extends LoadingViewModel {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
                 if (firstVisibleItem == 0 && SourceDateList.size() > 0) {
                     title.setText(SourceDateList.get(
                             getPositionForSection(getSectionForPosition(firstVisibleItem))).getSortLetters());
@@ -366,7 +373,6 @@ public class ContactListViewModel extends LoadingViewModel {
         }
         return -1;
     }
-
 
 
 }
