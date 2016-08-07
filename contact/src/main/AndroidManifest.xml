@@ -18,6 +18,7 @@
 
     <activity
         android:name="com.jc.android.template.presentation.view.activity.ContactListActivity"
+        android:windowSoftInputMode = "adjustPan"
         android:label="@string/activity_title_user_list">
 
     </activity>

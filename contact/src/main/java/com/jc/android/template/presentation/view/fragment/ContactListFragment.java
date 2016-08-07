@@ -35,15 +35,20 @@ public class ContactListFragment extends BaseFragment<ContactListViewModel, Demo
         getBinding().setViewModel(getViewModel());
         getBinding().sidrbar.setTextView(getBinding().dialog);
 
-
         return getBinding().getRoot();
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getViewModel().mClearEditTextClick(getBinding().filterEdit);
         getViewModel().loadUsersCommand(getBinding().countryLvcountry, getBinding().titleLayoutCatalog, getBinding().titleLayout);
+        getViewModel().mClearEditTextClick(getBinding().filterEdit);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     @Override

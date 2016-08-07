@@ -15,6 +15,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SectionIndexer;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +41,11 @@ import java.util.List;
 /**
  * Created by rocko on 15-11-5.
  */
-public class ContactListViewModel extends LoadingViewModel {
+public class ContactListViewModel extends LoadingViewModel  {
     private final static String TAG = ContactListViewModel.class.getSimpleName();
 
     public final ObservableBoolean showContentList = new ObservableBoolean(false);
     public final ObservableField<SortGroupMemberAdapter> adapter = new ObservableField<>();
-
     private List<ContactModel> SourceDateList = new ArrayList<>();
     /**
      * 上次第一个可见元素，用于滚动时记录标识。
@@ -61,7 +61,7 @@ public class ContactListViewModel extends LoadingViewModel {
      */
     private CharacterParser characterParser;
     public ListView sortListView;
-    private LinearLayout titleLayout;
+    public LinearLayout titleLayout;
     private TextView title;
     GetContactList getUserList = new GetContactList(App.context());
     ContactModelDataMapper demoModelDataMapper = new ContactModelDataMapper();
@@ -256,30 +256,32 @@ public class ContactListViewModel extends LoadingViewModel {
      */
 
     public void mClearEditTextClick(ClearEditText mClearEditText) {
-        mClearEditText.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            mClearEditText.addTextChangedListener(new TextWatcher() {
 
-                // 这个时候不需要挤压效果 就把他隐藏掉
-                titleLayout.setVisibility(View.GONE);
-                // 当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
-                filterData(s.toString());
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before,
+                                          int count) {
 
-            }
+                    // 这个时候不需要挤压效果 就把他隐藏掉
+                    titleLayout.setVisibility(View.GONE);
+                    // 当输入框里面的值为空，更新为原来的列表，否则为过滤数据列表
+                    filterData(s.toString());
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+                }
 
-            }
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                                              int after) {
 
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                }
+            });
+        }
+
 
     @Override
     public View.OnClickListener onRetryClick() {
@@ -325,7 +327,7 @@ public class ContactListViewModel extends LoadingViewModel {
      *
      * @param filterStr
      */
-    private void filterData(String filterStr) {
+    public void filterData(String filterStr) {
         List<ContactModel> filterDateList = new ArrayList<ContactModel>();
 
         if (TextUtils.isEmpty(filterStr)) {
@@ -359,6 +361,8 @@ public class ContactListViewModel extends LoadingViewModel {
     public int getSectionForPosition(int position) {
         return SourceDateList.get(position).getSortLetters().charAt(0);
     }
+
+
 
     /**
      * 根据分类的首字母的Char ascii值获取其第一次出现该首字母的位置

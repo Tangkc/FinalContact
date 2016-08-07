@@ -25,7 +25,7 @@ ext {
     retrofitGsonVersion = '2.0.1'
     retrofitRxJavaVersion = '2.1.0'
     jcbaseVersion = '0.2.2'
-    loginVersion = '1.1.4'
+    loginVersion = '1.1.5'
     configVersion = '1.0.2'
     lombokVersion = '1.16.8'
     //Testing

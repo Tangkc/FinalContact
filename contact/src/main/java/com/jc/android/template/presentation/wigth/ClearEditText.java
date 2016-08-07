@@ -64,7 +64,7 @@ public class ClearEditText extends EditText implements
                         - getPaddingRight() - mClearDrawable.getIntrinsicWidth()) 
                         && (event.getX() < ((getWidth() - getPaddingRight())));
                 if (touchable) { 
-                    this.setText(""); 
+                    this.setText("");
                 } 
             } 
         } 
@@ -137,6 +137,6 @@ public class ClearEditText extends EditText implements
     	translateAnimation.setDuration(1000);
     	return translateAnimation;
     }
- 
+
  
 }
