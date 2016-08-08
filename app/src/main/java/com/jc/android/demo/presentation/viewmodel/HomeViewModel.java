@@ -19,7 +19,7 @@ public class HomeViewModel extends ViewModel {
 			@Override
 			public void onClick(View v) {
 				Intent intent = LoginActivity.getCallingIntent(App.instance().getCurrentActivity(),
-						"com.jc.android.template.presentation.view.activity.ContactListActivity",
+						"com.jc.android.contact.presentation.view.activity.ContactListActivity",
 						"android/system/login4M.action");
 				ActivityNavigator.to(LoginActivity.class, intent);
 			}

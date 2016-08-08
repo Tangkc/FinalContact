@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto">
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <data class="com.jc.android.template.presentation.RowUserBinding">
+    <data class="com.jc.android.contact.presentation.RowUserBinding">
 
     </data>
 
@@ -27,11 +28,13 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <ImageView
+            <com.jc.android.contact.presentation.view.widget.AutoLoadImageView
                 android:id="@+id/imageView2"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_launcher" />
+                android:layout_height="20dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_launcher"
+               />
 
             <TextView
                 android:id="@+id/title"

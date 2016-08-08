@@ -17,14 +17,14 @@
 
 
     <activity
-        android:name="com.jc.android.template.presentation.view.activity.ContactListActivity"
+        android:name="com.jc.android.contact.presentation.view.activity.ContactListActivity"
         android:windowSoftInputMode = "adjustPan"
         android:label="@string/activity_title_user_list">
 
     </activity>
 
     <activity
-        android:name="com.jc.android.template.presentation.view.activity.ContactDetailsActivity"
+        android:name="com.jc.android.contact.presentation.view.activity.ContactDetailsActivity"
         android:label="@string/activity_title_user_details">
     </activity>
   </application>

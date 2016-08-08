@@ -9,7 +9,7 @@
 
         <variable
             name="viewModel"
-            type="com.jc.android.template.presentation.viewmodel.ContactDetailsViewModel" />
+            type="com.jc.android.contact.presentation.viewmodel.ContactDetailsViewModel" />
 
     </data>
 
@@ -26,11 +26,12 @@
             android:layout_marginTop="20dp"
             >
 
-            <ImageView
+            <com.jc.android.contact.presentation.view.widget.AutoLoadImageView
                 android:id="@+id/fragment_contact_photo"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/ic_launcher"
+                bind:imageUrl="@{viewModel.contactObs.photo}"
               />
 
             <TextView
@@ -65,7 +66,7 @@
                 android:id="@+id/fragment_contact_callPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.contactObs.mobile}"
+                android:text="@={viewModel.contactObs.formatNum}"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 android:layout_weight="10"

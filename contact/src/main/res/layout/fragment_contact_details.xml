@@ -2,11 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:bind="http://schemas.android.com/apk/res-auto">
 
-    <data class="com.jc.android.template.presentation.DemoDetailsBinding">
+    <data class="com.jc.android.contact.presentation.DemoDetailsBinding">
 
         <variable
             name="viewModel"
-            type="com.jc.android.template.presentation.viewmodel.ContactDetailsViewModel"/>
+            type="com.jc.android.contact.presentation.viewmodel.ContactDetailsViewModel"/>
     </data>
 <RelativeLayout
     android:layout_width="match_parent"

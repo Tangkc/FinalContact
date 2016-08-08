@@ -3,12 +3,12 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:bing="http://schemas.android.com/tools">
 
-    <data class="com.jc.android.template.presentation.DemoListBinding">
+    <data class="com.jc.android.contact.presentation.DemoListBinding">
 
         <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.jc.android.template.presentation.viewmodel.ContactListViewModel"/>
+            type="com.jc.android.contact.presentation.viewmodel.ContactListViewModel"/>
     </data>
 
     <LinearLayout
@@ -16,7 +16,7 @@
         android:layout_height="fill_parent"
         android:orientation="vertical" >
 
-        <com.jc.android.template.presentation.wigth.ClearEditText
+        <com.jc.android.contact.presentation.wigth.ClearEditText
             android:id="@+id/filter_edit"
             android:layout_width="fill_parent"
             android:layout_height="30dp"
@@ -83,7 +83,7 @@
                 android:textSize="30.0dip"
                 android:visibility="invisible" />
 
-            <com.jc.android.template.presentation.wigth.SideBar
+            <com.jc.android.contact.presentation.wigth.SideBar
                 android:id="@+id/sidrbar"
                 android:layout_width="30.0dip"
                 android:layout_height="fill_parent"
