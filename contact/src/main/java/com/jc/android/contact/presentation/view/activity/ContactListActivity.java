@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.SectionIndexer;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jc.android.base.presentation.view.activity.BaseActivity;
 import com.jc.android.module.contact.R;
 
@@ -22,44 +23,44 @@ import com.jc.android.module.contact.R;
  */
 public class ContactListActivity extends BaseActivity implements SectionIndexer {
 
-	public static Intent getCallingIntent(Context context) {
-		return new Intent(context, ContactListActivity.class);
-	}
+    public static Intent getCallingIntent(Context context) {
+        return new Intent(context, ContactListActivity.class);
+    }
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
-		super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+        super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
+        DataBindingUtil.setContentView(this, R.layout.contact_list_activity);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle("通讯录");
+        }
+    }
 
-		DataBindingUtil.setContentView(this, R.layout.contact_list_activity);
-		if (getSupportActionBar() != null) {
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-			getSupportActionBar().setTitle("通讯录");
-		}
-	}
+    @Override
+    public Object[] getSections() {
+        return new Object[0];
+    }
 
-	@Override
-	public Object[] getSections() {
-		return new Object[0];
-	}
+    @Override
+    public int getPositionForSection(int sectionIndex) {
+        return 0;
+    }
 
-	@Override
-	public int getPositionForSection(int sectionIndex) {
-		return 0;
-	}
+    @Override
+    public int getSectionForPosition(int position) {
+        return 0;
+    }
 
-	@Override
-	public int getSectionForPosition(int position) {
-		return 0;
-	}
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-	public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
 
-		if (item.getItemId() == android.R.id.home) {
-			finish();
-			return true;
-		}
-
-		return super.onOptionsItemSelected(item);
-	}
+        return super.onOptionsItemSelected(item);
+    }
 }

@@ -15,6 +15,8 @@
  */
 package com.jc.android.contact.presentation.mapper;
 
+import com.jc.android.base.presentation.App;
+import com.jc.android.component.config.domain.interactor.GetConfig;
 import com.jc.android.contact.data.entity.ContactEntity;
 import com.jc.android.contact.presentation.model.ContactModel;
 
@@ -40,9 +42,11 @@ public class ContactModelDataMapper {
     if (demo == null) {
       throw new IllegalArgumentException("Cannot transform a null value");
     }
+    GetConfig getConfig=new GetConfig(App.context());
+    String businessServer=getConfig.buildUseCase().getBusinessServer();
     ContactModel demoModel = new ContactModel();
     demoModel.setId(demo.getId());
-    demoModel.setPhoto(demo.getPhoto());
+    demoModel.setPhoto(demo.getPhoto().length()>0?businessServer+demo.getPhoto():null);
     demoModel.setDeptId(demo.getDeptId());
     demoModel.setMobile(demo.getMobile());
     demoModel.setOrderNo(demo.getOrderNo());

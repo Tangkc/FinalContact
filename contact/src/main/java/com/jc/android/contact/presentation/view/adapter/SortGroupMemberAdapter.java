@@ -3,6 +3,7 @@ package com.jc.android.contact.presentation.view.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.jc.android.contact.presentation.view.widget.AutoLoadImageView;
 import com.jc.android.module.contact.R;
 import com.jc.android.contact.presentation.model.ContactModel;
 
@@ -53,7 +56,7 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 			view = LayoutInflater.from(mContext).inflate(R.layout.row_contact, null);
 			viewHolder.tvTitle = (TextView) view.findViewById(R.id.title);
 			viewHolder.tvLetter = (TextView) view.findViewById(R.id.catalog);
-
+			viewHolder.autoLoadImageView= (SimpleDraweeView) view.findViewById(R.id.row_contact_imageView2);
 			view.setTag(viewHolder);
 		} else {
 			viewHolder = (ViewHolder) view.getTag();
@@ -69,8 +72,11 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 		} else {
 			viewHolder.tvLetter.setVisibility(View.GONE);
 		}
-
 		viewHolder.tvTitle.setText(this.list.get(position).getDisplayName());
+		if(this.list.get(position).getPhoto()!=null){
+			Uri uri = Uri.parse(this.list.get(position).getPhoto());
+			viewHolder.autoLoadImageView.setImageURI(uri);
+		}
 		return view;
 
 	}
@@ -78,6 +84,7 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 	final static class ViewHolder {
 		TextView tvLetter;
 		TextView tvTitle;
+		SimpleDraweeView autoLoadImageView;
 
 	}
 

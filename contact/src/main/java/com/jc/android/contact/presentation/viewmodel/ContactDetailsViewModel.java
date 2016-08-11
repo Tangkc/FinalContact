@@ -53,7 +53,7 @@ public class ContactDetailsViewModel extends LoadingViewModel {
         contactModel.setDisplayName(displayName == null ? "" : displayName);
         contactModel.setMobile(mobile == null ? "" : mobile);
         contactModel.setPhoto(photo == null ? "" : photo);
-        if(mobile.length()==11) {
+        if (mobile.length() == 11) {
             contactModel.setFormatNum(mobile.substring(0, 3) + "-" + mobile.substring(3, 7) + "-" + mobile.substring(7, 11));
         }
         contactObs.set(contactModel);
@@ -74,16 +74,16 @@ public class ContactDetailsViewModel extends LoadingViewModel {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TelephonyManager.SIM_STATE_ABSENT == 1) {
-                    Toast.makeText(App.instance().getCurrentActivity(), "请确认sim卡是否插入或者sim卡暂时不可用！", Toast.LENGTH_SHORT).show();
-                } else if (contactObs.get().getMobile() == null && contactObs.get().getMobile().length() == 0) {
-                    Toast.makeText(App.instance().getCurrentActivity(), "暂无联系人电话", Toast.LENGTH_SHORT).show();
-                } else if (contactObs.get().getMobile() != null && contactObs.get().getMobile().length() > 0 && TelephonyManager.SIM_STATE_ABSENT != 1) {
+                if (contactObs.get().getMobile() != null && contactObs.get().getMobile().length() > 0 && TelephonyManager.SIM_STATE_ABSENT != 1) {
                     Intent intent = new Intent(Intent.ACTION_SEND);
                     intent.setAction("android.intent.action.SENDTO");
                     intent.addCategory("android.intent.category.DEFAULT");
                     intent.setData(Uri.parse("sms:" + contactObs.get().getMobile()));
                     App.instance().getCurrentActivity().startActivity(intent);
+                } else if (TelephonyManager.SIM_STATE_ABSENT == 1) {
+                    Toast.makeText(App.instance().getCurrentActivity(), "请确认sim卡是否插入或者sim卡暂时不可用！", Toast.LENGTH_SHORT).show();
+                } else if (contactObs.get().getMobile() == null && contactObs.get().getMobile().length() == 0) {
+                    Toast.makeText(App.instance().getCurrentActivity(), "暂无联系人电话", Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -93,15 +93,15 @@ public class ContactDetailsViewModel extends LoadingViewModel {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TelephonyManager.SIM_STATE_ABSENT == 1) {
-                    Toast.makeText(App.instance().getCurrentActivity(), "请确认sim卡是否插入或者sim卡暂时不可用！", Toast.LENGTH_SHORT).show();
-                } else if (contactObs.get().getMobile() == null && contactObs.get().getMobile().length() == 0) {
-                    Toast.makeText(App.instance().getCurrentActivity(), "暂无联系人电话", Toast.LENGTH_SHORT).show();
-                } else if (contactObs.get().getMobile() != null && contactObs.get().getMobile().length() > 0 && TelephonyManager.SIM_STATE_ABSENT != 1) {
+                if (contactObs.get().getMobile() != null && contactObs.get().getMobile().length() > 0 && TelephonyManager.SIM_STATE_ABSENT != 1) {
                     Intent intent = new Intent();
                     intent.setAction(Intent.ACTION_CALL);
                     intent.setData(Uri.parse("tel:" + contactObs.get().getMobile()));
                     App.instance().getCurrentActivity().startActivity(intent);
+                } else if (TelephonyManager.SIM_STATE_ABSENT == 1) {
+                    Toast.makeText(App.instance().getCurrentActivity(), "请确认sim卡是否插入或者sim卡暂时不可用！", Toast.LENGTH_SHORT).show();
+                } else if (contactObs.get().getMobile() == null && contactObs.get().getMobile().length() == 0) {
+                    Toast.makeText(App.instance().getCurrentActivity(), "暂无联系人电话", Toast.LENGTH_SHORT).show();
                 }
             }
         };

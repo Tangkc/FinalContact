@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jc.android.base.presentation.view.activity.BaseActivity;
 import com.jc.android.module.contact.R;
 import com.jc.android.contact.presentation.view.fragment.ContactDetailsFragment;
@@ -40,6 +41,7 @@ public class ContactDetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         DataBindingUtil.setContentView(this, R.layout.activity_contact_details);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
