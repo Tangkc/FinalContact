@@ -15,9 +15,12 @@
  */
 package com.jc.android.contact.data.datasource;
 
-import com.jc.android.contact.data.entity.ContactEntity;
+import com.jc.android.contact.data.entity.Contact;
+import com.jc.android.contact.data.entity.Dept;
 
 import java.util.List;
+import java.util.Map;
+
 import rx.Observable;
 
 /**
@@ -25,14 +28,16 @@ import rx.Observable;
  */
 public interface ContactDataStore {
   /**
-   * Get an {@link rx.Observable} which will emit a List of {@link ContactEntity}.
+   * Get an {@link rx.Observable} which will emit a List of {@link Contact}.
    */
-  Observable<List<ContactEntity>> userEntityList(String id);
+  Observable<List<Contact>> userEntityList(String id);
 
   /**
-   * Get an {@link rx.Observable} which will emit a {@link ContactEntity} by its id.
+   * Get an {@link rx.Observable} which will emit a {@link Contact} by its id.
    *
    * @param userId The id to retrieve user data.
    */
-  Observable<ContactEntity> userEntityDetails(final String userId);
+  Observable<Contact> userEntityDetails(final String userId);
+
+  Observable<List<Dept>> deptUserList(String id);
 }

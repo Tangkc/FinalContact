@@ -10,7 +10,7 @@
 
         <fragment
             android:id="@+id/contact_fragment"
-            android:name="com.jc.android.contact.presentation.view.fragment.ContactListFragment"
+            android:name="com.jc.android.contact.presentation.view.fragment.ContactTreeFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />

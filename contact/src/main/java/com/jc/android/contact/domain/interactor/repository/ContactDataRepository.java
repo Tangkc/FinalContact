@@ -19,7 +19,8 @@ import android.content.Context;
 
 import com.jc.android.contact.data.datasource.ContactDataStore;
 import com.jc.android.contact.data.datasource.ContactDataStoreFactory;
-import com.jc.android.contact.data.entity.ContactEntity;
+import com.jc.android.contact.data.entity.Contact;
+import com.jc.android.contact.data.entity.Dept;
 
 import java.util.List;
 
@@ -52,14 +53,14 @@ public class ContactDataRepository implements ContactRepository {
 
 
 	@Override
-	public Observable<List<ContactEntity>> getPeoples(String id) {
+	public Observable<List<Contact>> getPeoples(String id) {
 		//we always get all users from the cloud
 		final ContactDataStore demoDataStore = this.demoDataStoreFactory.createCloudDataStore();
 
 		return demoDataStore.userEntityList(id)
-				.map(new Func1<List<ContactEntity>, List<ContactEntity>>() {
+				.map(new Func1<List<Contact>, List<Contact>>() {
 					@Override
-					public List<ContactEntity> call(List<ContactEntity> userEntities) {
+					public List<Contact> call(List<Contact> userEntities) {
 						return userEntities;
 					}
 				});
@@ -67,14 +68,22 @@ public class ContactDataRepository implements ContactRepository {
 
 	@SuppressWarnings("Convert2MethodRef")
 	@Override
-	public Observable<ContactEntity> user(String userId) {
+	public Observable<Contact> user(String userId) {
 		final ContactDataStore demoDataStore = this.demoDataStoreFactory.create(userId);
 		return demoDataStore.userEntityDetails(userId)
-				.map(new Func1<ContactEntity, ContactEntity>() {
+				.map(new Func1<Contact, Contact>() {
 					@Override
-					public ContactEntity call(ContactEntity demoEntity) {
+					public Contact call(Contact demoEntity) {
 						return demoEntity;
 					}
 				});
+	}
+
+	@Override
+	public Observable<List<Dept>> getDeptUser(String id) {
+		//we always get all users from the cloud
+		final ContactDataStore demoDataStore = this.demoDataStoreFactory.createCloudDataStore();
+
+		return demoDataStore.deptUserList(id);
 	}
 }

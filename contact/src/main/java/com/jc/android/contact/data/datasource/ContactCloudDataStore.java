@@ -24,7 +24,8 @@ import com.jc.android.base.data.net.RetrofitFactory;
 import com.jc.android.base.data.net.utils.NetUtil;
 import com.jc.android.component.config.data.datasource.ConfigDataStoreFactory;
 import com.jc.android.component.config.data.dto.Config;
-import com.jc.android.contact.data.entity.ContactEntity;
+import com.jc.android.contact.data.entity.Contact;
+import com.jc.android.contact.data.entity.Dept;
 import com.jc.android.contact.data.net.ContactService;
 
 import java.util.List;
@@ -55,13 +56,13 @@ public class ContactCloudDataStore implements ContactDataStore {
     }
 
     @Override
-    public Observable<List<ContactEntity>> userEntityList(String id) {
+    public Observable<List<Contact>> userEntityList(String id) {
         if (!NetUtil.isThereInternetConnection(context))
             return Observable.error(new NoConnectionException());
-        return this.webService.demoList(id)
-                .flatMap(new Func1<JCResponse<List<ContactEntity>>, Observable<List<ContactEntity>>>() {
+        return this.webService.userList(id)
+                .flatMap(new Func1<JCResponse<List<Contact>>, Observable<List<Contact>>>() {
                     @Override
-                    public Observable<List<ContactEntity>> call(JCResponse<List<ContactEntity>> listJCResponse) {
+                    public Observable<List<Contact>> call(JCResponse<List<Contact>> listJCResponse) {
                         if (!"000000".equals(listJCResponse.getCode())) {
                             return Observable.error(new BusinessException(listJCResponse.getErrormsg()));
                         }
@@ -71,17 +72,33 @@ public class ContactCloudDataStore implements ContactDataStore {
     }
 
     @Override
-    public Observable<ContactEntity> userEntityDetails(final String id) {
-        return this.webService.demo(String.valueOf(id))
-                .flatMap(new Func1<JCResponse<ContactEntity>, Observable<ContactEntity>>() {
+    public Observable<Contact> userEntityDetails(final String id) {
+        return this.webService.user(String.valueOf(id))
+                .flatMap(new Func1<JCResponse<Contact>, Observable<Contact>>() {
                     @Override
-                    public Observable<ContactEntity> call(JCResponse<ContactEntity> listJCResponse) {
+                    public Observable<Contact> call(JCResponse<Contact> jcResponse) {
+                        if (!"000000".equals(jcResponse.getCode())) {
+                            return Observable.error(new BusinessException(jcResponse.getErrormsg()));
+                        }
+                        return Observable.just(jcResponse.getBody());
+                    }
+                });
+
+    }
+
+    @Override
+    public Observable<List<Dept>> deptUserList(String id) {
+        if (!NetUtil.isThereInternetConnection(context))
+            return Observable.error(new NoConnectionException());
+        return this.webService.deptUserList(id)
+                .flatMap(new Func1<JCResponse<List<Dept>>, Observable<List<Dept>>>() {
+                    @Override
+                    public Observable<List<Dept>> call(JCResponse<List<Dept>> listJCResponse) {
                         if (!"000000".equals(listJCResponse.getCode())) {
                             return Observable.error(new BusinessException(listJCResponse.getErrormsg()));
                         }
                         return Observable.just(listJCResponse.getBody());
                     }
                 });
-
     }
 }

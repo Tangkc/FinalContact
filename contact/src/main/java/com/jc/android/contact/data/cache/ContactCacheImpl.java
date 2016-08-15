@@ -19,7 +19,7 @@ import android.content.Context;
 
 import com.jc.android.base.data.cache.FileManager;
 import com.jc.android.base.data.cache.serializer.JsonSerializer;
-import com.jc.android.contact.data.entity.ContactEntity;
+import com.jc.android.contact.data.entity.Contact;
 import com.jc.android.contact.data.exception.UserNotFoundException;
 import com.jc.android.base.data.executor.JobExecutor;
 import com.jc.android.base.data.executor.ThreadExecutor;
@@ -89,13 +89,13 @@ public class ContactCacheImpl implements ContactCache {
 	}
 
 	@Override
-	public synchronized Observable<ContactEntity> get(final String userId) {
-		return Observable.create(new Observable.OnSubscribe<ContactEntity>() {
+	public synchronized Observable<Contact> get(final String userId) {
+		return Observable.create(new Observable.OnSubscribe<Contact>() {
 			@Override
-			public void call(Subscriber<? super ContactEntity> subscriber) {
+			public void call(Subscriber<? super Contact> subscriber) {
 				File userEntityFile = ContactCacheImpl.this.buildFile(userId);
 				String fileContent = ContactCacheImpl.this.fileManager.readFileContent(userEntityFile);
-				ContactEntity demoEntity = ContactCacheImpl.this.serializer.deserialize(fileContent,ContactEntity.class);
+				Contact demoEntity = ContactCacheImpl.this.serializer.deserialize(fileContent,Contact.class);
 
 				if (demoEntity != null) {
 					subscriber.onNext(demoEntity);
@@ -108,7 +108,7 @@ public class ContactCacheImpl implements ContactCache {
 	}
 
 	@Override
-	public synchronized void put(ContactEntity demoEntity) {
+	public synchronized void put(Contact demoEntity) {
 		if (demoEntity != null) {
 			File userEntitiyFile = this.buildFile(demoEntity.getId()+"");
 			if (!isCached(demoEntity.getId()+"")) {

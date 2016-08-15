@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:bind="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data parent="@">
 
         <import type="android.view.View" />
+        <import type="android.text.TextUtils"/>
 
         <variable
             name="viewModel"
@@ -13,81 +14,164 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         bind:visibility="@{viewModel.showUserDetails?View.VISIBLE:View.GONE}">
 
-        <RelativeLayout
+
+        <com.jc.android.contact.presentation.view.widget.AutoLoadImageView
+            android:id="@+id/fragment_contact_photo"
+            android:layout_width="120dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_launcher"
+            bind:imageUrl="@{viewModel.contactObs.photo}" />
+
+        <TextView
+            android:id="@+id/fragment_contact_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@+id/fragment_contact_photo"
+            android:text="@={viewModel.contactObs.displayName}"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            tools:text="管理员" />
+
+        <TextView
+            android:id="@+id/fragment_contact_dept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_contact_name"
+            android:layout_marginLeft="24dp"
+            android:layout_toEndOf="@+id/fragment_contact_photo"
+            android:text="@={viewModel.contactObs.deptName}"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            tools:text="XX部门" />
+
+        <TextView
+            android:id="@+id/fragment_contact_duty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_contact_dept"
+            android:layout_marginLeft="24dp"
+            android:layout_toEndOf="@+id/fragment_contact_photo"
+            android:text="@={viewModel.contactObs.dutyIdValue}"
+            android:textColor="#000000"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            tools:text="处长" />
+
+        <TextView
+            android:id="@+id/contact_label_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fragment_contact_photo"
             android:layout_marginLeft="16dp"
-            android:layout_marginTop="20dp"
+            android:text="电话"
+            android:textColor="#0099CC"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/contact_ll_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_label_phone"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            bind:visibility="@{TextUtils.isEmpty(viewModel.contactObs.mobile)?View.GONE:View.VISIBLE}"
             >
 
-            <com.jc.android.contact.presentation.view.widget.AutoLoadImageView
-                android:id="@+id/fragment_contact_photo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/ic_launcher"
-                bind:imageUrl="@{viewModel.contactObs.photo}"
-              />
-
             <TextView
-                android:id="@+id/fragment_contace_name"
+                android:id="@+id/fragment_contact_mobile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="24dp"
-                android:layout_marginTop="15dp"
-                android:layout_toRightOf="@+id/fragment_contact_photo"
+                android:layout_weight="10"
+                android:text="@={viewModel.contactObs.mobile}"
                 android:textColor="#000000"
-                android:textSize="16dp"
-                android:textStyle="bold"
-                android:text="@={viewModel.contactObs.displayName}"/>
-        </RelativeLayout>
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:src="@drawable/bottom2"
+                bind:onClickListener="@{(view) -> viewModel.onSendSMSClick(view,1)}" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/workflow_phone"
+                bind:onClickListener="@{(view) -> viewModel.onCallClick(view,1)}" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/contact_ll_officetel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/contact_ll_mobile"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            bind:visibility="@{TextUtils.isEmpty(viewModel.contactObs.officeTel)?View.GONE:View.VISIBLE}">
+
+            <TextView
+                android:id="@+id/fragment_contact_phone_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:text="@={viewModel.contactObs.officeTel}"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:src="@drawable/bottom2"
+                bind:onClickListener="@{(view) -> viewModel.onSendSMSClick(view,2)}" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginLeft="8dp"
+                android:src="@drawable/workflow_phone"
+                bind:onClickListener="@{(view) -> viewModel.onCallClick(view,2)}" />
+        </LinearLayout>
+
         <TextView
+            android:id="@+id/contact_label_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="#0099CC"
+            android:layout_below="@+id/contact_ll_officetel"
             android:layout_marginLeft="16dp"
-            android:text="手机:" />
+            android:text="电子邮件"
+            android:textColor="#0099CC"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
+            android:layout_below="@+id/contact_label_mail"
             android:layout_marginTop="6dp"
-            android:layout_marginRight="8dp"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/fragment_contact_callPhone"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@={viewModel.contactObs.formatNum}"
-                android:textColor="#000000"
-                android:textSize="16sp"
                 android:layout_weight="10"
-               />
-            <ImageView
-                android:id="@+id/fragment_contact_mail"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/bottom2"
-                android:layout_weight="1"
-                bind:onClickListener="@{viewModel.onSentMail}"
-                />
-            <ImageView
-                android:id="@+id/fragment_contact_tell"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/workflow_phone"
-                android:layout_marginLeft="8dp"
-                bind:onClickListener="@{viewModel.onCallPhone}"
-                />
+                android:text="@={viewModel.contactObs.email}"
+                android:textColor="#000000"
+                android:textSize="16sp" />
+
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </layout>

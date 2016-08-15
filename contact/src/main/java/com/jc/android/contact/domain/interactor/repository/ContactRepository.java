@@ -17,25 +17,29 @@ package com.jc.android.contact.domain.interactor.repository;
 
 
 
-import com.jc.android.contact.data.entity.ContactEntity;
+import com.jc.android.contact.data.entity.Contact;
+import com.jc.android.contact.data.entity.Dept;
 
 import java.util.List;
+import java.util.Map;
 
 import rx.Observable;
 
 /**
- * Interface that represents a Repository for getting {@link ContactEntity} related data.
+ * Interface that represents a Repository for getting {@link Contact} related data.
  */
 public interface ContactRepository {
 	/**
-	 * Get an {@link Observable} which will emit a List of {@link ContactEntity}.
+	 * Get an {@link Observable} which will emit a List of {@link Contact}.
 	 */
-	Observable<List<ContactEntity>> getPeoples(String id);
+	Observable<List<Contact>> getPeoples(String id);
 
 	/**
-	 * Get an {@link Observable} which will emit a {@link ContactEntity}.
+	 * Get an {@link Observable} which will emit a {@link Contact}.
 	 *
 	 * @param userId The user id used to retrieve user data.
 	 */
-	Observable<ContactEntity> user(final String userId);
+	Observable<Contact> user(final String userId);
+
+	Observable<List<Dept>> getDeptUser(String id);
 }

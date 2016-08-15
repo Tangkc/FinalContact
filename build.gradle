@@ -21,12 +21,12 @@ allprojects {
         }
     }
     ext {
-        androidApplicationId = 'com.jc.android.app.template'
+        androidApplicationId = 'com.jc.android.app.contact'
         androidVersionCode = 1
         androidVersionName = "1.0"
 
         testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
-        testApplicationId = 'com.jc.android.app.template.test'
+        testApplicationId = 'com.jc.android.app.contact.test'
     }
 }
 

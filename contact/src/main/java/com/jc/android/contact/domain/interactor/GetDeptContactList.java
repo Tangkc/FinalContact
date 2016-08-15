@@ -26,23 +26,17 @@ import rx.Observable;
 
 /**
  * This class is an implementation of {@link UseCase} that represents a use case for
- * retrieving data related to an specific {@link .data.dto.User}.
+ *
  */
-public class GetContactDetails extends UseCase {
-
-	String userId;
+public class GetDeptContactList extends UseCase {
+	private String id;
 	ContactRepository userRepository;
 
-	public GetContactDetails(Context appContext) {
-		this(null, new ContactDataRepository(appContext));
+	public GetDeptContactList(Context appContext) {
+		this(new ContactDataRepository(appContext));
 	}
 
-	public GetContactDetails(String userId, Context appContext) {
-		this(userId, new ContactDataRepository(appContext));
-	}
-
-	public GetContactDetails(String userId, ContactRepository userRepository) {
-		this.userId = userId;
+	public GetDeptContactList(ContactRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
@@ -50,13 +44,16 @@ public class GetContactDetails extends UseCase {
 		this.userRepository = userRepository;
 	}
 
-
-	public void setUserId(String userId) {
-		this.userId = userId;
+	@Override
+	public Observable buildUseCaseObservable() {
+		return this.userRepository.getDeptUser(this.id);
 	}
 
-	@Override
-	protected Observable buildUseCaseObservable() {
-		return this.userRepository.user(this.userId);
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
 	}
 }

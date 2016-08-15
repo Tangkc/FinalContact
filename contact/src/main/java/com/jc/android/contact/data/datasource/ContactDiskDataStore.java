@@ -16,9 +16,11 @@
 package com.jc.android.contact.data.datasource;
 
 import com.jc.android.contact.data.cache.ContactCache;
-import com.jc.android.contact.data.entity.ContactEntity;
+import com.jc.android.contact.data.entity.Contact;
+import com.jc.android.contact.data.entity.Dept;
 
 import java.util.List;
+
 import rx.Observable;
 
 /**
@@ -37,12 +39,17 @@ public class ContactDiskDataStore implements ContactDataStore {
     this.demoCache = demoCache;
   }
 
-  @Override public Observable<List<ContactEntity>> userEntityList(String id) {
+  @Override public Observable<List<Contact>> userEntityList(String id) {
     //TODO: implement simple cache for storing/retrieving collections of users.
     throw new UnsupportedOperationException("Operation is not available!!!");
   }
 
-  @Override public Observable<ContactEntity> userEntityDetails(final String userId) {
+  @Override public Observable<Contact> userEntityDetails(final String userId) {
      return this.demoCache.get(userId);
+  }
+
+  @Override
+  public Observable<List<Dept>> deptUserList(String id) {
+    return null;
   }
 }

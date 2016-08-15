@@ -21,19 +21,13 @@ import com.jc.android.contact.presentation.view.fragment.ContactDetailsFragment;
  * Activity that shows details of a certain user.
  */
 public class ContactDetailsActivity extends BaseActivity {
-    public static final String INTENT_EXTRA_PARAM_DISPLAYNAME = "org.android10.INTENT_PARAM_DISPLAYNAME";
-    public static final String INTENT_EXTRA_PARAM_MOBILE = "org.android10.INTENT_PARAM_MOBILE";
-    public static final String INTENT_EXTRA_PARAM_PHOTO = "org.android10.INTENT_PARAM_PHOTO";
+    public static final String INTENT_EXTRA_PARAM_ID = "org.android10.INTENT_PARAM_DISPLAYNAME";
 
-    private String displayName;
-    private String mobile;
-    private String photo;
+    private long id;
 
-    public static Intent getCallingIntent(Context context, String displayName, String mobile, String photo) {
+    public static Intent getCallingIntent(Context context, long id) {
         Intent callingIntent = new Intent(context, ContactDetailsActivity.class);
-        callingIntent.putExtra(INTENT_EXTRA_PARAM_DISPLAYNAME, displayName);
-        callingIntent.putExtra(INTENT_EXTRA_PARAM_MOBILE, mobile);
-        callingIntent.putExtra(INTENT_EXTRA_PARAM_PHOTO, photo);
+        callingIntent.putExtra(INTENT_EXTRA_PARAM_ID, id);
         return callingIntent;
     }
 
@@ -53,9 +47,7 @@ public class ContactDetailsActivity extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         if (outState != null) {
-            outState.putString(INTENT_EXTRA_PARAM_DISPLAYNAME, this.displayName);
-            outState.putString(INTENT_EXTRA_PARAM_MOBILE, this.mobile);
-            outState.putString(INTENT_EXTRA_PARAM_PHOTO, this.photo);
+            outState.putLong(INTENT_EXTRA_PARAM_ID, this.id);
         }
         super.onSaveInstanceState(outState);
     }
@@ -65,14 +57,10 @@ public class ContactDetailsActivity extends BaseActivity {
      */
     private void initializeActivity(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            this.displayName = getIntent().getStringExtra(INTENT_EXTRA_PARAM_DISPLAYNAME);
-            this.mobile = getIntent().getStringExtra(INTENT_EXTRA_PARAM_MOBILE);
-            this.photo = getIntent().getStringExtra(INTENT_EXTRA_PARAM_PHOTO);
-            addFragment(R.id.fl_fragment_demo, ContactDetailsFragment.newInstance(this.displayName, this.mobile, this.photo), ContactDetailsFragment.TAG);
+            this.id = getIntent().getLongExtra(INTENT_EXTRA_PARAM_ID,0);
+            addFragment(R.id.fl_fragment_demo, ContactDetailsFragment.newInstance(this.id), ContactDetailsFragment.TAG);
         } else {
-            this.displayName = savedInstanceState.getString(INTENT_EXTRA_PARAM_DISPLAYNAME);
-            this.mobile = savedInstanceState.getString(INTENT_EXTRA_PARAM_MOBILE);
-            this.photo = savedInstanceState.getString(INTENT_EXTRA_PARAM_PHOTO);
+            this.id = savedInstanceState.getLong(INTENT_EXTRA_PARAM_ID);
         }
     }
 

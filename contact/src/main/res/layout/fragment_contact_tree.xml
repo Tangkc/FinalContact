@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:bing="http://schemas.android.com/tools">
+
+    <data class="com.jc.android.contact.presentation.ContactTreeBinding">
+
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.jc.android.contact.presentation.viewmodel.ContactListViewModel"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/container"/>
+
+        <include
+            layout="@layout/view_progress"
+            bind:viewModel="@{viewModel}"
+            />
+
+        <include
+            layout="@layout/view_retry"
+            bind:viewModel="@{viewModel}"
+            />
+    </LinearLayout>
+
+
+
+</layout>

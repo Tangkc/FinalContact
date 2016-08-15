@@ -16,10 +16,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.jc.android.base.presentation.navigation.ActivityNavigator;
 import com.jc.android.base.presentation.viewmodel.LoadingViewModel;
 import com.jc.android.base.presentation.App;
 import com.jc.android.logon.domain.interactor.GetUser;
-import com.jc.android.contact.data.entity.ContactEntity;
+import com.jc.android.contact.data.entity.Contact;
 import com.jc.android.contact.domain.interactor.GetContactList;
 import com.jc.android.contact.presentation.mapper.ContactModelDataMapper;
 import com.jc.android.contact.presentation.model.ContactModel;
@@ -104,9 +105,9 @@ public class ContactListViewModel extends LoadingViewModel  {
         }
         showLoading();
         getUserList.setId(getUser.buildUseCaseObservable().getId() + "");
-        getUserList.execute(new ProcessErrorSubscriber<List<ContactEntity>>(App.context()) {
+        getUserList.execute(new ProcessErrorSubscriber<List<Contact>>(App.context()) {
             @Override
-            public void onNext(List<ContactEntity> demos) {
+            public void onNext(List<Contact> demos) {
                 List<ContactModel> demoModelsCollection = (List<ContactModel>) demoModelDataMapper.transformUsers(demos);
                 SourceDateList = filledData(demoModelsCollection);
                 // 根据a-z进行排序源数据
@@ -122,25 +123,6 @@ public class ContactListViewModel extends LoadingViewModel  {
             }
 
         });
-        //       List<ContactModel> mSortList = new ArrayList<>();
-        //       /**
-        //       * 获取数据
-        //     */
-//       String[] ab=new String[]{"阿妹","阿郎","陈奕迅","周杰伦","曾一鸣","成龙","王力宏","汪峰","王菲","那英","张伟","张学友"
-//           ,"李德华","郑源","白水水","白天不亮","陈龙","陈丽丽","哈林","高进","高雷","阮今天","龚琳娜","苏醒","苏永康","陶喆","沙宝亮","宋冬野"
-//            ,"宋伟","袁成杰","戚薇","齐大友","齐天大圣","品冠","吴克群","BOBO","Jobs","动力火车","伍佰","#蔡依林","$797835344$","Jack","~夏先生"};
-
-//     String[] ab=new String[]{"管理员"};
-//        for(int i=0;i<ab.length;i++){
-//            ContactModel contactModel=new ContactModel();
-//            contactModel.setDisplayName(ab[i]);
-//            mSortList.add(contactModel);
-//        }
-//        SourceDateList = filledData(mSortList);
-//         //根据a-z进行排序源数据
-//                Collections.sort(SourceDateList, pinyinComparator);
-//                adapter.set(new SortGroupMemberAdapter(App.context(), SourceDateList));
-//                sortListView.setAdapter(adapter.get());
 
     }
 
@@ -173,12 +155,8 @@ public class ContactListViewModel extends LoadingViewModel  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(App.instance().getCurrentActivity(),
-                        ((ContactModel) adapter.get().getItem(position)).getDisplayName(),
-                        Toast.LENGTH_SHORT).show();
-                Intent intent = ContactDetailsActivity.getCallingIntent(App.instance().getCurrentActivity(), ((ContactModel) adapter.get().getItem(position)).getDisplayName(),
-                        ((ContactModel) adapter.get().getItem(position)).getMobile(), ((ContactModel) adapter.get().getItem(position)).getPhoto());
-                App.instance().getCurrentActivity().startActivity(intent);
+                Intent intent = ContactDetailsActivity.getCallingIntent(App.instance().getCurrentActivity(), ((ContactModel) adapter.get().getItem(position)).getId());
+                ActivityNavigator.to(ContactDetailsActivity.class,intent);
             }
         };
     }

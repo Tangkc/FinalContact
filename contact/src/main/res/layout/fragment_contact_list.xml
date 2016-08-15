@@ -3,7 +3,7 @@
     xmlns:bind="http://schemas.android.com/apk/res-auto"
     xmlns:bing="http://schemas.android.com/tools">
 
-    <data class="com.jc.android.contact.presentation.DemoListBinding">
+    <data class="com.jc.android.contact.presentation.ContactListBinding">
 
         <import type="android.view.View"/>
         <variable

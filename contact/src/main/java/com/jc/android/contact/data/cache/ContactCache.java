@@ -15,7 +15,7 @@
  */
 package com.jc.android.contact.data.cache;
 
-import com.jc.android.contact.data.entity.ContactEntity;
+import com.jc.android.contact.data.entity.Contact;
 
 import rx.Observable;
 
@@ -24,18 +24,18 @@ import rx.Observable;
  */
 public interface ContactCache {
   /**
-   * Gets an {@link rx.Observable} which will emit a {@link ContactEntity}.
+   * Gets an {@link rx.Observable} which will emit a {@link Contact}.
    *
    * @param userId The user id to retrieve data.
    */
-  Observable<ContactEntity> get(final String userId);
+  Observable<Contact> get(final String userId);
 
   /**
    * Puts and element into the cache.
    *
    * @param demoEntity Element to insert in the cache.
    */
-  void put(ContactEntity demoEntity);
+  void put(Contact demoEntity);
 
   /**
    * Checks if an element (Demo) exists in the cache.
