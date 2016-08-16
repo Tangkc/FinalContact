@@ -17,6 +17,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="8dp"
         bind:visibility="@{viewModel.showUserDetails?View.VISIBLE:View.GONE}">
 
 
@@ -24,154 +25,176 @@
             android:id="@+id/fragment_contact_photo"
             android:layout_width="120dp"
             android:layout_height="160dp"
-            android:src="@drawable/ic_launcher"
+
+            android:src="@mipmap/no_pic"
             bind:imageUrl="@{viewModel.contactObs.photo}" />
 
         <TextView
+            style="@style/contact_title"
             android:id="@+id/fragment_contact_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="15dp"
             android:layout_toEndOf="@+id/fragment_contact_photo"
             android:text="@={viewModel.contactObs.displayName}"
             android:textColor="#000000"
-            android:textSize="16dp"
-            android:textStyle="bold"
             tools:text="管理员" />
 
         <TextView
+            style="@style/contact_content"
             android:id="@+id/fragment_contact_dept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fragment_contact_name"
-            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
             android:layout_toEndOf="@+id/fragment_contact_photo"
             android:text="@={viewModel.contactObs.deptName}"
             android:textColor="#000000"
-            android:textSize="16dp"
-            android:textStyle="bold"
             tools:text="XX部门" />
 
         <TextView
+            style="@style/contact_content"
             android:id="@+id/fragment_contact_duty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/fragment_contact_dept"
-            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/fragment_contact_photo"
             android:text="@={viewModel.contactObs.dutyIdValue}"
             android:textColor="#000000"
-            android:textSize="16dp"
-            android:textStyle="bold"
             tools:text="处长" />
 
         <TextView
             android:id="@+id/contact_label_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_below="@+id/fragment_contact_photo"
-            android:layout_marginLeft="16dp"
             android:text="电话"
             android:textColor="#0099CC"
             android:textSize="16sp" />
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:id="@+id/contact_ll_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_label_phone"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal"
+            android:layout_margin="8dp"
             bind:visibility="@{TextUtils.isEmpty(viewModel.contactObs.mobile)?View.GONE:View.VISIBLE}"
             >
-
-            <TextView
-                android:id="@+id/fragment_contact_mobile"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
-                android:text="@={viewModel.contactObs.mobile}"
-                android:textColor="#000000"
-                android:textSize="16sp" />
+                android:gravity="center_horizontal"
+                >
+                <TextView
+                    style="@style/contact_content"
+                    android:id="@+id/fragment_contact_mobile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/contact_iv_mobile_sms"
+                    android:layout_alignBaseline="@+id/contact_iv_mobile_sms"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginStart="8dp"
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_weight="1"
-                android:src="@drawable/bottom2"
-                bind:onClickListener="@{(view) -> viewModel.onSendSMSClick(view,1)}" />
+                    android:text="@={viewModel.contactObs.mobile}"
+                    tools:text="1330099877"
+                     />
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="8dp"
-                android:src="@drawable/workflow_phone"
-                bind:onClickListener="@{(view) -> viewModel.onCallClick(view,1)}" />
-        </LinearLayout>
-        <LinearLayout
+                <ImageView
+                    android:id="@+id/contact_iv_mobile_sms"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/bottom2"
+                    android:layout_toStartOf="@+id/contact_iv_mobile_call"
+                    bind:onClickListener="@{(view) -> viewModel.onSendSMSClick(view,1)}" />
+
+                <ImageView
+                    android:id="@+id/contact_iv_mobile_call"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_margin="8dp"
+                    android:src="@drawable/workflow_phone"
+                    android:layout_alignParentEnd="true"
+                    bind:onClickListener="@{(view) -> viewModel.onCallClick(view,1)}" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+        <android.support.v7.widget.CardView
             android:id="@+id/contact_ll_officetel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_ll_mobile"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal"
+            android:layout_margin="8dp"
             bind:visibility="@{TextUtils.isEmpty(viewModel.contactObs.officeTel)?View.GONE:View.VISIBLE}">
-
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <TextView
+                style="@style/contact_content"
                 android:id="@+id/fragment_contact_phone_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:layout_marginTop="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/contact_iv_office_sms"
                 android:text="@={viewModel.contactObs.officeTel}"
-                android:textColor="#000000"
-                android:textSize="16sp" />
+                 />
 
             <ImageView
+                android:id="@+id/contact_iv_office_sms"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_weight="1"
+                android:layout_margin="8dp"
+                android:layout_toStartOf="@+id/contact_iv_office_call"
                 android:src="@drawable/bottom2"
                 bind:onClickListener="@{(view) -> viewModel.onSendSMSClick(view,2)}" />
 
             <ImageView
+                android:id="@+id/contact_iv_office_call"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginLeft="8dp"
+                android:layout_margin="8dp"
+                android:layout_alignParentEnd="true"
                 android:src="@drawable/workflow_phone"
                 bind:onClickListener="@{(view) -> viewModel.onCallClick(view,2)}" />
-        </LinearLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
         <TextView
             android:id="@+id/contact_label_mail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/contact_ll_officetel"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="8dp"
             android:text="电子邮件"
             android:textColor="#0099CC"
             android:textSize="16sp" />
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_below="@+id/contact_label_mail"
-            android:layout_marginTop="6dp"
-            android:orientation="horizontal">
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            bind:visibility="@{TextUtils.isEmpty(viewModel.contactObs.email)?View.GONE:View.VISIBLE}">
 
             <TextView
-                android:layout_width="0dp"
+                style="@style/contact_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="10"
+                android:paddingTop="4dp"
+                android:layout_marginStart="8dp"
+                tools:text="1111@qq.com"
                 android:text="@={viewModel.contactObs.email}"
-                android:textColor="#000000"
-                android:textSize="16sp" />
+                />
 
-        </LinearLayout>
+        </android.support.v7.widget.CardView>
     </RelativeLayout>
 
 </layout>

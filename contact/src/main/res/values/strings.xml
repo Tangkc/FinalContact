@@ -457,4 +457,54 @@
   <string name="ic_whatshot">&#xe1ae;</string>
   <string name="ic_wifi_tethering">&#xe1af;</string>
   <string name="ic_work">&#xe1b0;</string>
+
+  <!-- 列表页样式 开始 -->
+  <style name="contact_list_style">
+    <item name="android:layout_marginLeft">8dp</item>
+    <item name="android:layout_marginRight">8dp</item>
+  </style>
+  <style name="contact_list_item_title">
+    <item name="android:textColor">@color/textColorPrimary</item>
+    <item name="android:textSize">18sp</item>
+    <!--<item name="android:singleLine">true</item>-->
+    <item name="android:lines">1</item>
+    <item name="android:alpha">0.85</item>
+  </style>
+  <style name="contact_list_item_content">
+    <item name="android:textColor">@color/textColorPrimary</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:singleLine">false</item>
+    <item name="android:maxLines">3</item>
+    <item name="android:alpha">0.54</item>
+  </style>
+  <style name="contact_title">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginBottom">@dimen/header_margin</item>
+    <item name="android:textSize">@dimen/header_text_size</item>
+    <item name="android:textStyle">bold</item>
+    <item name="android:gravity">center</item>
+    <item name="android:background">@android:color/background_light</item>
+    <item name="android:alpha">0.85</item>
+  </style>
+  <style name="contact_content">
+    <item name="android:textColor">@color/textColorPrimary</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:alpha">0.54</item>
+  </style>
+  <style name="contact_label_text">
+    <item name="android:textColor">@color/textColorPrimary</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:maxLines">3</item>
+    <item name="android:alpha">0.85</item>
+  </style>
+  <style name="contact_navigator_btn_text">
+    <item name="android:textColor">@color/textColorPrimary</item>
+    <item name="android:textSize">14sp</item>
+    <item name="android:singleLine">true</item>
+    <item name="android:maxLines">3</item>
+    <item name="android:alpha">0.54</item>
+  </style>
+  <!-- 列表页样式 结束 -->
 </resources>

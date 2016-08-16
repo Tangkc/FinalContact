@@ -10,7 +10,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@drawable/selector_item_row"
+        >
 
         <TextView
             android:id="@+id/catalog"
@@ -29,23 +31,24 @@
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/row_contact_imageView2"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="8dp"
-                fresco:placeholderImage="@drawable/ic_launcher"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_margin="4dp"
+                fresco:actualImageScaleType="fitXY"
+                fresco:placeholderImage="@mipmap/no_pic"
                />
 
             <TextView
+                style="@style/contact_list_item_title"
                 android:id="@+id/title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dip"
+                android:layout_marginStart="5dp"
                 android:gravity="center_vertical"
-                android:paddingBottom="10dip"
-                android:paddingTop="10dip"
-                android:text="hhhh"
-                android:textColor="#336598" />
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip"
+                android:text="hhhh"/>
         </LinearLayout>
 
     </LinearLayout>
