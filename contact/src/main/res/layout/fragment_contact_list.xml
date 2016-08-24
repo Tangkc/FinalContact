@@ -18,14 +18,17 @@
 
         <com.jc.android.contact.presentation.wigth.ClearEditText
             android:id="@+id/filter_edit"
-            android:layout_width="fill_parent"
-            android:layout_height="30dp"
+            android:layout_width="match_parent"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_height="40dp"
             android:layout_marginTop="5dip"
+            android:layout_marginBottom="5dp"
             android:background="@drawable/search_bar_edit_selector"
-            android:drawableLeft="@drawable/search_bar_icon_normal"
+            android:drawableLeft="@drawable/ic_search_black_24dp"
             android:hint="请输入关键字"
             android:singleLine="true"
-            android:textSize="15.0dip"
+            android:textSize="18dip"
             />
 
         <FrameLayout
