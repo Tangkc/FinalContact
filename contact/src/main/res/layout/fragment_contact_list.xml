@@ -88,7 +88,7 @@
 
             <com.jc.android.contact.presentation.wigth.SideBar
                 android:id="@+id/sidrbar"
-                android:layout_width="30.0dip"
+                android:layout_width="32dip"
                 android:layout_height="fill_parent"
                 android:layout_gravity="right|center"
                 bing:OnTouchingLetterChangedListener="@{viewModel.sideOnTouchingLetterChange}"/>

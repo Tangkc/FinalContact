@@ -73,6 +73,7 @@ public class ContactListActivity extends BaseActivity implements SectionIndexer 
         }
         else if(item.getItemId()==R.id.showTree){
             ActivityNavigator.to(ContactTreeActivity.class);
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

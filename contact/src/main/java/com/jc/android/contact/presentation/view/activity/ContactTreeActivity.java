@@ -64,6 +64,7 @@ public class ContactTreeActivity extends BaseActivity implements SectionIndexer 
             return true;
         } else if (item.getItemId() == R.id.showFlatten) {
             ActivityNavigator.to(ContactListActivity.class);
+            finish();
         } else if (item.getItemId() == R.id.showTree) {
 
         }

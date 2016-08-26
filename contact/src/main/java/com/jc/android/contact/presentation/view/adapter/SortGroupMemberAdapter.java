@@ -77,6 +77,9 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 			Uri uri = Uri.parse(this.list.get(position).getPhoto());
 			viewHolder.autoLoadImageView.setImageURI(uri);
 		}
+		else{
+			viewHolder.autoLoadImageView.setImageURI(Uri.parse("res://drawable/" + R.mipmap.no_pic));
+		}
 		return view;
 
 	}

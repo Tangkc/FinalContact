@@ -302,6 +302,7 @@ public class ContactListViewModel extends LoadingViewModel  {
      * @param filterStr
      */
     public void filterData(String filterStr) {
+        filterStr=filterStr.toLowerCase();
         List<ContactModel> filterDateList = new ArrayList<ContactModel>();
 
         if (TextUtils.isEmpty(filterStr)) {
