@@ -20,59 +20,65 @@
         android:padding="8dp"
         bind:visibility="@{viewModel.showUserDetails?View.VISIBLE:View.GONE}">
 
+<RelativeLayout
+    android:id="@+id/phote_name"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.jc.android.contact.presentation.view.widget.AutoLoadImageView
+        android:id="@+id/fragment_contact_photo"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
 
-        <com.jc.android.contact.presentation.view.widget.AutoLoadImageView
-            android:id="@+id/fragment_contact_photo"
-            android:layout_width="120dp"
-            android:layout_height="160dp"
+        android:src="@mipmap/no_pic"
+        bind:imageUrl="@{viewModel.contactObs.photo}" />
 
-            android:src="@mipmap/no_pic"
-            bind:imageUrl="@{viewModel.contactObs.photo}" />
+    <TextView
+        style="@style/contact_title"
+        android:id="@+id/fragment_contact_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="15dp"
+        android:layout_toEndOf="@+id/fragment_contact_photo"
+        android:text="@={viewModel.contactObs.displayName}"
+        android:textColor="#000000"
+        tools:text="管理员" />
 
-        <TextView
-            style="@style/contact_title"
-            android:id="@+id/fragment_contact_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="15dp"
-            android:layout_toEndOf="@+id/fragment_contact_photo"
-            android:text="@={viewModel.contactObs.displayName}"
-            android:textColor="#000000"
-            tools:text="管理员" />
+    <TextView
+        style="@style/contact_content"
+        android:id="@+id/fragment_contact_dept"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_contact_name"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="24dp"
+        android:layout_toEndOf="@+id/fragment_contact_photo"
+        android:text="@={viewModel.contactObs.deptName}"
+        android:textColor="#000000"
+        tools:text="XX部门" />
 
-        <TextView
-            style="@style/contact_content"
-            android:id="@+id/fragment_contact_dept"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_contact_name"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="24dp"
-            android:layout_toEndOf="@+id/fragment_contact_photo"
-            android:text="@={viewModel.contactObs.deptName}"
-            android:textColor="#000000"
-            tools:text="XX部门" />
+    <TextView
+        style="@style/contact_content"
+        android:id="@+id/fragment_contact_duty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fragment_contact_dept"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_toEndOf="@+id/fragment_contact_photo"
+        android:text="@={viewModel.contactObs.dutyIdValue}"
+        android:textColor="#000000"
+        tools:text="处长" />
 
-        <TextView
-            style="@style/contact_content"
-            android:id="@+id/fragment_contact_duty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/fragment_contact_dept"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/fragment_contact_photo"
-            android:text="@={viewModel.contactObs.dutyIdValue}"
-            android:textColor="#000000"
-            tools:text="处长" />
+</RelativeLayout>
+
 
         <TextView
             android:id="@+id/contact_label_phone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_below="@+id/fragment_contact_photo"
+            android:layout_below="@+id/phote_name"
             android:text="电话"
             android:textColor="#0099CC"
             android:textSize="16sp" />
