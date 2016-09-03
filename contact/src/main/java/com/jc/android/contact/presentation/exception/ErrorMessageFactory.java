@@ -16,12 +16,18 @@
 package com.jc.android.contact.presentation.exception;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.jc.android.base.data.exception.BusinessException;
 import com.jc.android.base.data.exception.NetworkConnectionException;
 import com.jc.android.base.data.exception.NoConnectionException;
 import com.jc.android.module.contact.R;
 import com.jc.android.contact.data.exception.UserNotFoundException;
+
+import java.net.ConnectException;
+import java.net.SocketTimeoutException;
+
+import retrofit2.adapter.rxjava.HttpException;
 
 /**
  * Factory used to create error messages from an Exception as a condition.
@@ -44,15 +50,19 @@ public class ErrorMessageFactory {
 
     if (exception instanceof NoConnectionException) {
       message = context.getString(R.string.exception_message_no_connection);
+    } else if (exception instanceof ConnectException) {
+      message = context.getString(R.string.exception_message_connection);
+    } else if (exception instanceof HttpException) {
+      message = context.getString(R.string.exception_message_HttpException);
+    } else if (exception instanceof SocketTimeoutException) {
+      message = context.getString(R.string.exception_message_SocketTimeoutException);
     } else if (exception instanceof NetworkConnectionException) {
-      message = context.getString(R.string.exception_message_no_connection);
-    } else if (exception instanceof UserNotFoundException) {
-      message = context.getString(R.string.exception_message_user_not_found);
-    } else if (exception instanceof BusinessException){
+      message = context.getString(R.string.exception_message_NetworkConnectionException);
+    } else if (exception instanceof BusinessException) {
       message = exception.getMessage();
     }
-
+    Log.e(ErrorMessageFactory.class.getSimpleName(), exception.getMessage(), exception);
     return message;
-//    return null;
+
   }
 }
