@@ -52,8 +52,7 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.UserVi
 	@Override
 	public UserViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 		rowUserBinding = DataBindingUtil.inflate(layoutInflater, R.layout.row_contact, parent, false);
-		UserViewHolder userViewHolder = new UserViewHolder(rowUserBinding);
-		return userViewHolder;
+		return new UserViewHolder(rowUserBinding);
 	}
 
 	@Override
