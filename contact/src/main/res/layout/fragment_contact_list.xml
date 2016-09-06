@@ -17,7 +17,7 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <com.jc.android.contact.presentation.wigth.ClearEditText
+        <com.jc.android.contact.presentation.widget.ClearEditText
             android:id="@+id/filter_edit"
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -50,7 +50,7 @@
                 android:id="@+id/title_layout_no_friends"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
-                android:layout_gravity="right|top"
+                android:layout_gravity="end|top"
                 android:background="#E0E0E0"
                 android:gravity="center_vertical"
                 android:text="没有匹配的联系人"
@@ -61,7 +61,7 @@
                 android:id="@+id/title_layout"
                 android:layout_width="fill_parent"
                 android:layout_height="30dp"
-                android:layout_gravity="right|top"
+                android:layout_gravity="end|top"
                 android:background="#ff303030"
                 android:orientation="vertical">
 
@@ -89,11 +89,11 @@
                 android:textSize="30.0dip"
                 android:visibility="invisible" />
 
-            <com.jc.android.contact.presentation.wigth.SideBar
-                android:id="@+id/sidrbar"
+            <com.jc.android.contact.presentation.widget.SideBar
+                android:id="@+id/sidebar"
                 android:layout_width="32dip"
                 android:layout_height="fill_parent"
-                android:layout_gravity="right|center"
+                android:layout_gravity="end|center"
                 bing:OnTouchingLetterChangedListener="@{viewModel.sideOnTouchingLetterChange}" />
         </FrameLayout>
 

@@ -1,4 +1,4 @@
-package com.jc.android.contact.presentation.wigth;
+package com.jc.android.contact.presentation.widget;
 
 
 import android.content.Context;

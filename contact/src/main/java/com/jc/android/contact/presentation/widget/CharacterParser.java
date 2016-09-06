@@ -4,7 +4,7 @@
  * @author	LuRuihui
  * @version	0.1
  */
-package com.jc.android.contact.presentation.wigth;
+package com.jc.android.contact.presentation.widget;
 
 /**
  * Java汉字转换为拼音
