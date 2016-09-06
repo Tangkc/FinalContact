@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/showFlatten"
-        app:showAsAction="never"
-        android:title="按姓氏" />
+        android:title="按姓氏"
+        app:showAsAction="never" />
     <item
-        app:showAsAction="never"
         android:id="@+id/showTree"
-        android:title="按组织" />
+        android:title="按组织"
+        app:showAsAction="never" />
 </menu>

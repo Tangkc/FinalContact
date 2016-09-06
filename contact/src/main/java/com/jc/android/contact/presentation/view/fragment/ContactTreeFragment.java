@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.jc.android.base.presentation.App;
 import com.jc.android.base.presentation.navigation.ActivityNavigator;
 import com.jc.android.base.presentation.view.fragment.BaseFragment;
+import com.jc.android.base.presentation.viewmodel.ViewModel;
 import com.jc.android.contact.data.entity.Contact;
 import com.jc.android.contact.data.entity.Dept;
 import com.jc.android.contact.domain.interactor.GetDeptContactList;
@@ -33,7 +34,7 @@ import java.util.List;
 /**
  * Fragment that shows a list of Users.
  */
-public class ContactTreeFragment extends BaseFragment<ContactListViewModel, ContactTreeBinding> {
+public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBinding> {
 
     public final static String TAG = ContactTreeFragment.class.getSimpleName();
     private AndroidTreeView tView;
@@ -48,10 +49,7 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
-        setViewModel(new ContactListViewModel());
         setBinding(DataBindingUtil.<ContactTreeBinding>inflate(inflater, R.layout.fragment_contact_tree, container, true));
-        getBinding().setViewModel(getViewModel());
 
         View rootView = getBinding().getRoot();
 

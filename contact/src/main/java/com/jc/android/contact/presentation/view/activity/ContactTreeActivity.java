@@ -23,7 +23,7 @@ import com.jc.android.module.contact.R;
 /**
  * Activity that shows a list of Users.
  */
-public class ContactTreeActivity extends BaseActivity implements SectionIndexer {
+public class ContactTreeActivity extends BaseActivity {
 
     public static Intent getCallingIntent(Context context) {
         return new Intent(context, ContactTreeActivity.class);
@@ -40,21 +40,6 @@ public class ContactTreeActivity extends BaseActivity implements SectionIndexer 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setTitle("通讯录");
         }
-    }
-
-    @Override
-    public Object[] getSections() {
-        return new Object[0];
-    }
-
-    @Override
-    public int getPositionForSection(int sectionIndex) {
-        return 0;
-    }
-
-    @Override
-    public int getSectionForPosition(int position) {
-        return 0;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

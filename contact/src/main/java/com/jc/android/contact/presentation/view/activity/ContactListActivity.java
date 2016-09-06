@@ -26,7 +26,7 @@ import com.jc.android.module.contact.R;
 /**
  * Activity that shows a list of Users.
  */
-public class ContactListActivity extends BaseActivity implements SectionIndexer {
+public class ContactListActivity extends BaseActivity {
 
 
     public static Intent getCallingIntent(Context context) {
@@ -45,21 +45,6 @@ public class ContactListActivity extends BaseActivity implements SectionIndexer 
             getSupportActionBar().setTitle("通讯录");
         }
 
-    }
-
-    @Override
-    public Object[] getSections() {
-        return new Object[0];
-    }
-
-    @Override
-    public int getPositionForSection(int sectionIndex) {
-        return 0;
-    }
-
-    @Override
-    public int getSectionForPosition(int position) {
-        return 0;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

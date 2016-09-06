@@ -5,44 +5,46 @@
 
     <data class="com.jc.android.contact.presentation.ContactListBinding">
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
-            type="com.jc.android.contact.presentation.viewmodel.ContactListViewModel"/>
+            type="com.jc.android.contact.presentation.viewmodel.ContactListViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <com.jc.android.contact.presentation.wigth.ClearEditText
             android:id="@+id/filter_edit"
             android:layout_width="match_parent"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
             android:layout_height="40dp"
-            android:layout_marginTop="5dip"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
             android:background="@drawable/search_bar_edit_selector"
             android:drawableLeft="@drawable/ic_search_black_24dp"
             android:hint="请输入关键字"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
             android:singleLine="true"
-            android:textSize="18dip"
-            />
+            android:textSize="18sp" />
 
         <FrameLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent">
 
             <ListView
                 android:id="@+id/country_lvcountry"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_gravity="center"
+                android:divider="@null"
                 bind:OnItemClickListener="@{viewModel.sortListViewOnItemClick}"
-                bind:OnScrollListener="@{viewModel.sortListViewOnScrollClick}"
-                android:divider="@null" />
+                bind:OnScrollListener="@{viewModel.sortListViewOnScrollClick}" />
 
             <TextView
                 android:id="@+id/title_layout_no_friends"
@@ -61,18 +63,19 @@
                 android:layout_height="30dp"
                 android:layout_gravity="right|top"
                 android:background="#ff303030"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/title_layout_catalog"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:background="#E0E0E0"
-                    android:paddingBottom="5dip"
-                    android:paddingLeft="5dip"
-                    android:paddingTop="5dip"
+                    android:paddingBottom="4dp"
+                    android:paddingEnd="0dp"
+                    android:paddingStart="16dp"
+                    android:paddingTop="4dp"
                     android:textColor="#454545" />
+
             </LinearLayout>
 
             <TextView
@@ -91,19 +94,17 @@
                 android:layout_width="32dip"
                 android:layout_height="fill_parent"
                 android:layout_gravity="right|center"
-                bing:OnTouchingLetterChangedListener="@{viewModel.sideOnTouchingLetterChange}"/>
+                bing:OnTouchingLetterChangedListener="@{viewModel.sideOnTouchingLetterChange}" />
         </FrameLayout>
+
         <include
             layout="@layout/view_progress"
-            bind:viewModel="@{viewModel}"
-            />
+            bind:viewModel="@{viewModel}" />
 
         <include
             layout="@layout/view_retry"
-            bind:viewModel="@{viewModel}"
-            />
+            bind:viewModel="@{viewModel}" />
     </LinearLayout>
-
 
 
 </layout>

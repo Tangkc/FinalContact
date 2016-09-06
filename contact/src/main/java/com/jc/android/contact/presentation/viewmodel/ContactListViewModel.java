@@ -7,6 +7,7 @@ import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -63,34 +64,6 @@ public class ContactListViewModel extends LoadingViewModel  {
     GetContactList getUserList = new GetContactList(App.context());
     ContactModelDataMapper demoModelDataMapper = new ContactModelDataMapper();
     GetUser getUser = new GetUser(App.context());
-
-
-    @BindView
-    @Override
-    public void showLoading() {
-        super.showLoading();
-        showContentList.set(false);
-    }
-
-    @BindView
-    @Override
-    public void showRetry() {
-        super.showRetry();
-        showContentList.set(false);
-    }
-
-    @BindView
-    public void showContentList(SortGroupMemberAdapter demosAdapter) {
-        showLoading.set(false);
-        showRetry.set(false);
-        showContentList.set(true);
-        adapter.set(demosAdapter);
-    }
-
-    @BindView
-    public void showMoreContent() {
-        // userAdapter
-    }
 
     @Command
     public void loadUsersCommand(final ListView sortListView, TextView title, LinearLayout titleLayout) {
@@ -179,21 +152,22 @@ public class ContactListViewModel extends LoadingViewModel  {
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
                 if (firstVisibleItem == 0 && SourceDateList.size() > 0) {
-                    title.setText(SourceDateList.get(
-                            getPositionForSection(getSectionForPosition(firstVisibleItem))).getSortLetters());
+                    ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) titleLayout.getLayoutParams();
+                    params.topMargin = 0;
+                    titleLayout.setLayoutParams(params);
+                    title.setText(SourceDateList.get(getPositionForSection(getSectionForPosition(firstVisibleItem))).getSortLetters());
                 }
+
                 if (firstVisibleItem != 0) {
                     int section = getSectionForPosition(firstVisibleItem);
-
                     int nextSection = getSectionForPosition(firstVisibleItem + 1);
                     int nextSecPosition = getPositionForSection(+nextSection);
+
                     if (firstVisibleItem != lastFirstVisibleItem) {
-                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) titleLayout
-                                .getLayoutParams();
+                        ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) titleLayout.getLayoutParams();
                         params.topMargin = 0;
                         titleLayout.setLayoutParams(params);
-                        title.setText(SourceDateList.get(
-                                getPositionForSection(section)).getSortLetters());
+                        title.setText(SourceDateList.get(getPositionForSection(section)).getSortLetters());
                     }
 
                     if (nextSecPosition == firstVisibleItem + 1) {
@@ -201,8 +175,8 @@ public class ContactListViewModel extends LoadingViewModel  {
                         if (childView != null) {
                             int titleHeight = titleLayout.getHeight();
                             int bottom = childView.getBottom();
-                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) titleLayout
-                                    .getLayoutParams();
+                            ViewGroup.MarginLayoutParams params = (ViewGroup.MarginLayoutParams) titleLayout.getLayoutParams();
+
                             if (bottom < titleHeight) {
                                 float pushedDistance = bottom - titleHeight;
                                 params.topMargin = (int) pushedDistance;
