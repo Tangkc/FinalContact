@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +30,10 @@ import com.unnamed.b.atv.model.TreeNode;
 import com.unnamed.b.atv.view.AndroidTreeView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Fragment that shows a list of Users.
@@ -41,13 +45,7 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
     private TreeNode root;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         setBinding(DataBindingUtil.<ContactTreeBinding>inflate(inflater, R.layout.fragment_contact_tree, container, true));
 
@@ -75,16 +73,11 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
             }
 
             @Override
-            public void onNext(List<Dept> depts) {
-                Log.d(TAG, "onNext: " + depts.toString());
+            public void onNext(List<Dept> deptList) {
                 ViewGroup containerView = getBinding().container;
                 root = TreeNode.root();
 
-                List<TreeNode> nodes = assembleTree(depts, 0);
-                root.addChildren(nodes);
-
-//                tView.addNode(root,nodes.get(0));
-
+                assembleTreeWithMap(deptList, root);
                 tView = new AndroidTreeView(getActivity(), root);
 
                 tView.setDefaultAnimation(true);
@@ -98,23 +91,11 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
         });
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public Context getContext() {
-        return this.getActivity().getApplicationContext();
-    }
-
-
-
     private TreeNode.TreeNodeClickListener nodeClickListener = new TreeNode.TreeNodeClickListener() {
         @Override
         public void onClick(TreeNode node, Object value) {
             IconTreeItemHolder.IconTreeItem item = (IconTreeItemHolder.IconTreeItem) value;
-            if(item.type==1) {
+            if (item.type == 1) {
                 Intent intent = ContactDetailsActivity.getCallingIntent(App.instance().getCurrentActivity(), item.id);
                 ActivityNavigator.to(ContactDetailsActivity.class, intent);
             }
@@ -130,33 +111,39 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
         }
     };
 
-    private List<TreeNode> assembleTree(List<Dept> depts, long parentId) {
-        List<TreeNode> nodes = new ArrayList<>();
-        if (depts.size() == 0) {
-            return nodes;
+    private void assembleTreeWithMap(@NonNull List<Dept> deptList, @NonNull TreeNode root) {
+
+        Map<Long, List<Dept>> map = new HashMap<>();
+        for (Dept dept:deptList) {
+            List<Dept> list = map.get(dept.getParentId());
+            if (list==null) {
+                list = new LinkedList<>();
+                map.put(dept.getParentId(), list);
+            }
+
+            list.add(dept);
         }
 
-        for (int i = depts.size() - 1; i > -1; i--) {
-            Dept dept = depts.get(i);
-            if (dept.getParentId() == parentId) {
+        fillMap(root, map, 0);
+    }
+
+    private void fillMap(TreeNode parent, Map<Long, List<Dept>> map, long parentId) {
+        List<Dept> list = map.get(parentId);
+        if (list!=null) {
+            for (Dept dept:list) {
                 TreeNode child = new TreeNode(new IconTreeItemHolder.IconTreeItem(dept.getDeptType() == 1 ? R.string.ic_hotel : R.string.ic_flag, dept.getName(), dept.getId(),0));
-                nodes.add(child);
-                depts.remove(i);
+                parent.addChild(child);
+
+                fillMap(child, map, dept.getId());
 
                 //add person
                 if(dept.getUserList()!=null){
-                    for (Contact contact:dept.getUserList()
-                         ) {
-                        TreeNode person = new TreeNode(new IconTreeItemHolder.IconTreeItem( R.string.ic_person, contact.getDisplayName(), contact.getId(),1));
+                    for (Contact contact:dept.getUserList()) {
+                        TreeNode person = new TreeNode(new IconTreeItemHolder.IconTreeItem(R.string.ic_person, contact.getDisplayName(), contact.getId(), 1));
                         child.addChild(person);
                     }
                 }
             }
         }
-
-        for (TreeNode node : nodes) {
-            node.addChildren(assembleTree(depts, ((IconTreeItemHolder.IconTreeItem)node.getValue()).id));
-        }
-        return nodes;
     }
 }

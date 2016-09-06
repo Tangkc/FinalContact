@@ -50,8 +50,8 @@ public class IconTreeItemHolder extends TreeNode.BaseNodeViewHolder<IconTreeItem
         public IconTreeItem(int icon, String text,long id,int type) {
             this.icon = icon;
             this.text = text;
-            this.id=id;
-            this.type=type;
+            this.id = id;
+            this.type = type;
         }
     }
 }

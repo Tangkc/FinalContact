@@ -1,6 +1,7 @@
 package com.jc.android.demo.presentation.viewmodel;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.jc.android.base.data.cache.persister.PrefrenceTool;
@@ -9,6 +10,8 @@ import com.jc.android.base.presentation.navigation.ActivityNavigator;
 import com.jc.android.base.presentation.viewmodel.ViewModel;
 import com.jc.android.component.config.data.datasource.ConfigDataStoreFactory;
 import com.jc.android.component.config.data.dto.Config;
+import com.jc.android.component.config.domain.interactor.GetConfig;
+import com.jc.android.component.config.domain.interactor.PutConfig;
 import com.jc.android.logon.presentation.view.activity.LoginActivity;
 public class HomeViewModel extends ViewModel {
 
@@ -17,19 +20,21 @@ public class HomeViewModel extends ViewModel {
 		return new View.OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				//init confit
-				Config config=new Config();
-				config.setBusinessServer("http://172.16.3.239:8180/goa/");
-				config.setUpdateServer("http://172.16.3.239:8089/");
-				ConfigDataStoreFactory configDataStoreFactory = new ConfigDataStoreFactory(App.context());
 
-				configDataStoreFactory.create().writeConfig(config);
+				GetConfig getConfig = new GetConfig(App.context());
+				Config config=new Config();
+				if (TextUtils.isEmpty(getConfig.buildUseCase().getBusinessServer())) {
+					PutConfig putConfig = new PutConfig(App.context());
+					putConfig.setBusinessServer("http://172.16.3.239:8180/goa/");
+					putConfig.setUpdateServer("http://172.16.3.239:8089/");
+					putConfig.buildUseCase(config);
+				}
 
 				//clear login cookie
-				PrefrenceTool.removeValue(App.context().getPackageName(), config.getBusinessServer(),App.context());
+				PrefrenceTool.removeValue(App.context().getPackageName(), config.getBusinessServer(), App.context());
 
 				Intent intent = LoginActivity.getCallingIntent(App.instance().getCurrentActivity(),
-						"com.jc.android.contact.presentation.view.activity.ContactListActivity",
+						"com.jc.android.demo.presentation.view.activity.MenuActivity",
 						"android/system/login4M.action");
 				ActivityNavigator.to(LoginActivity.class, intent);
 			}
