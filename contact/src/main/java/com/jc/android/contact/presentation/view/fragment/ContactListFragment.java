@@ -25,7 +25,7 @@ public class ContactListFragment extends BaseFragment<ContactListViewModel, Cont
                              Bundle savedInstanceState) {
 
         setViewModel(new ContactListViewModel());
-        setBinding(DataBindingUtil.<ContactListBinding>inflate(inflater, R.layout.fragment_contact_list, container, true));
+        setBinding(DataBindingUtil.<ContactListBinding>inflate(inflater, R.layout.fragment_contact_list, container, false));
         getBinding().setViewModel(getViewModel());
         getBinding().sidebar.setTextView(getBinding().dialog);
 

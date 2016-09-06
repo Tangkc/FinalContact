@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 public class ContentBuilder {
 
+    // RAGE
+    public static final String PARAM_PAGE_TYPE = "PARAM_PAGE_TYPE";
+
     // RANGE
     public static final String PARAM_RANGE_MIN = "PARAM_RANGE_MIN";
     public static final String PARAM_RANGE_MAX = "PARAM_RANGE_MAX";
@@ -26,10 +29,10 @@ public class ContentBuilder {
     public static final String PARAM_SELECTED_IDS = "PARAM_SELECTED_IDS";
 
     // 页面类型
-    public static final int PARAM_PAGE_USER_LIST = 0; // 人员列表
-    public static final int PARAM_PAGE_USER_TREE = 1; // 人员树
-    public static final int PARAM_PAGE_ORG_LIST = 2;  // 机构列表
-    public static final int PARAM_PAGE_ORG_TREE = 3;  // 机构树
+    public static final int PAGE_USER_LIST = 0; // 人员列表
+    public static final int PAGE_USER_TREE = 1; // 人员树
+    public static final int PAGE_ORG_LIST = 2;  // 机构列表
+    public static final int PAGE_ORG_TREE = 3;  // 机构树
 
     // 选择类型
     public static final int VIEW_TYPE_SHOW = 0;       // 展示, 通讯录
@@ -41,28 +44,12 @@ public class ContentBuilder {
 
     public ContentBuilder(Context context) {
         this.context = context;
-        intent = new Intent(context, ContactListActivity.class);
+        intent = new Intent(context, ContactCenterActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 
     public ContentBuilder page(int page) {
-        switch (page) {
-            case PARAM_PAGE_USER_LIST:
-                intent.setClass(context, ContactListActivity.class);
-                break;
-            case PARAM_PAGE_USER_TREE:
-                intent.setClass(context, ContactTreeActivity.class);
-                break;
-            case PARAM_PAGE_ORG_LIST:
-                Log.e("error", "机构列表未实现", new NullPointerException("机构列表未实现"));
-                break;
-            case PARAM_PAGE_ORG_TREE:
-                Log.e("error", "机构树未实现", new NullPointerException("机构树未实现"));
-                break;
-            default:
-                intent.setClass(context, ContactListActivity.class);
-                break;
-        }
+        intent.putExtra(PARAM_PAGE_TYPE, page);
         return this;
     }
 

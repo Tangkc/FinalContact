@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/unselect_all"
+        android:orderInCategory="1"
+        android:icon="@mipmap/ic_check_box_outline_blank_white_24dp"
+        android:title="取消全选"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/select_all"
+        android:orderInCategory="2"
+        android:icon="@mipmap/ic_check_box_white_24dp"
+        android:title="全选"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/save"
+        android:orderInCategory="3"
+        android:icon="@mipmap/ic_done_white_24dp"
+        android:title="保存"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/showFlatten"
+        android:orderInCategory="8"
+        android:title="按姓氏"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/showTree"
+        android:orderInCategory="9"
+        android:title="按组织"
+        app:showAsAction="never" />
+</menu>

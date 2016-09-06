@@ -13,8 +13,8 @@
     </data>
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.jc.android.contact.presentation.widget.ClearEditText
@@ -34,8 +34,8 @@
             android:textSize="18sp" />
 
         <FrameLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <ListView
                 android:id="@+id/country_lvcountry"
@@ -48,7 +48,7 @@
 
             <TextView
                 android:id="@+id/title_layout_no_friends"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_gravity="end|top"
                 android:background="#E0E0E0"
@@ -92,7 +92,7 @@
             <com.jc.android.contact.presentation.widget.SideBar
                 android:id="@+id/sidebar"
                 android:layout_width="32dip"
-                android:layout_height="fill_parent"
+                android:layout_height="match_parent"
                 android:layout_gravity="end|center"
                 bing:OnTouchingLetterChangedListener="@{viewModel.sideOnTouchingLetterChange}" />
         </FrameLayout>
