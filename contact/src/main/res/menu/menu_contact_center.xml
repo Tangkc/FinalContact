@@ -24,12 +24,12 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/showFlatten"
+        android:id="@+id/show_flatten"
         android:orderInCategory="8"
         android:title="按姓氏"
         app:showAsAction="never" />
     <item
-        android:id="@+id/showTree"
+        android:id="@+id/show_tree"
         android:orderInCategory="9"
         android:title="按组织"
         app:showAsAction="never" />

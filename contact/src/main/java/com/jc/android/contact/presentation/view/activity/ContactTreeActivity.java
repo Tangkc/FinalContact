@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.SectionIndexer;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jc.android.base.presentation.navigation.ActivityNavigator;
@@ -47,10 +46,10 @@ public class ContactTreeActivity extends BaseActivity {
         if (item.getItemId() == android.R.id.home) {
             finish();
             return true;
-        } else if (item.getItemId() == R.id.showFlatten) {
+        } else if (item.getItemId() == R.id.show_flatten) {
             ActivityNavigator.to(ContactListActivity.class);
             finish();
-        } else if (item.getItemId() == R.id.showTree) {
+        } else if (item.getItemId() == R.id.show_tree) {
 
         }
 

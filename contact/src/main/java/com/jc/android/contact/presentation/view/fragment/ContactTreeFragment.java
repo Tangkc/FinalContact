@@ -47,7 +47,7 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setBinding(DataBindingUtil.<ContactTreeBinding>inflate(inflater, R.layout.fragment_contact_tree, container, true));
+        setBinding(DataBindingUtil.<ContactTreeBinding>inflate(inflater, R.layout.fragment_contact_tree, container, false));
 
         View rootView = getBinding().getRoot();
 

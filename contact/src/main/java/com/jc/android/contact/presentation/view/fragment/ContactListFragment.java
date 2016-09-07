@@ -21,8 +21,7 @@ public class ContactListFragment extends BaseFragment<ContactListViewModel, Cont
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         setViewModel(new ContactListViewModel());
         setBinding(DataBindingUtil.<ContactListBinding>inflate(inflater, R.layout.fragment_contact_list, container, false));

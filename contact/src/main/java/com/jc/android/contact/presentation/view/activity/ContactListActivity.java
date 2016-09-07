@@ -9,17 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
-import android.widget.SectionIndexer;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jc.android.base.presentation.navigation.ActivityNavigator;
 import com.jc.android.base.presentation.view.activity.BaseActivity;
-import com.jc.android.contact.presentation.view.fragment.ContactListFragment;
-import com.jc.android.contact.presentation.view.fragment.ContactTreeFragment;
 import com.jc.android.module.contact.R;
 
 
@@ -53,10 +49,10 @@ public class ContactListActivity extends BaseActivity {
             finish();
             return true;
         }
-        else if(item.getItemId()==R.id.showFlatten){
+        else if(item.getItemId()==R.id.show_flatten){
 //            ActivityNavigator.to();
         }
-        else if(item.getItemId()==R.id.showTree){
+        else if(item.getItemId()==R.id.show_tree){
             ActivityNavigator.to(ContactTreeActivity.class);
             finish();
         }
