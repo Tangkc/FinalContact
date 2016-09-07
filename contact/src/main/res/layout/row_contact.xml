@@ -31,6 +31,30 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <RadioButton
+                android:id="@+id/radio_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:buttonTint="#666666"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <CheckBox
+                android:id="@+id/check_box"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:visibility="gone"
+                android:buttonTint="#666666"
+                tools:visibility="visible" />
+
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/row_contact_imageView2"
                 android:layout_width="48dp"
@@ -42,17 +66,16 @@
             <TextView
                 android:id="@+id/title"
                 style="@style/contact_list_item_title"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginEnd="24dp"
-                android:layout_marginStart="5dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
                 android:ellipsize="end"
-                android:gravity="center_vertical"
                 android:lines="1"
-                android:paddingBottom="8dip"
-                android:paddingTop="8dip"
                 tools:text="I am the king of the word!Oh hahahahaha" />
+
         </LinearLayout>
 
     </LinearLayout>

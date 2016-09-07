@@ -7,6 +7,7 @@ import android.databinding.ObservableField;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 import com.jc.android.base.presentation.navigation.ActivityNavigator;
 import com.jc.android.base.presentation.viewmodel.LoadingViewModel;
 import com.jc.android.base.presentation.App;
+import com.jc.android.contact.presentation.view.activity.ContactCenterActivity;
+import com.jc.android.contact.presentation.view.activity.ContentBuilder;
 import com.jc.android.logon.domain.interactor.GetUser;
 import com.jc.android.contact.data.entity.Contact;
 import com.jc.android.contact.domain.interactor.GetContactList;
@@ -138,8 +141,16 @@ public class ContactListViewModel extends LoadingViewModel {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent intent = ContactDetailsActivity.getCallingIntent(App.instance().getCurrentActivity(), ((ContactModel) adapter.get().getItem(position)).getId());
-                ActivityNavigator.to(ContactDetailsActivity.class, intent);
+//                Intent intent = ContactDetailsActivity.getCallingIntent(App.instance().getCurrentActivity(), ((ContactModel) adapter.get().getItem(position)).getId());
+//                ActivityNavigator.to(ContactDetailsActivity.class, intent);
+
+                Log.i("data11", "onItemClick");
+                if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SHOW) {
+                    Intent intent = ContactDetailsActivity.getCallingIntent(App.instance().getCurrentActivity(), ((ContactModel) adapter.get().getItem(position)).getId());
+                    ActivityNavigator.to(ContactDetailsActivity.class, intent);
+                } else if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE || ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_MULTIPLE) {
+                    adapter.get().onItemSelected(position);
+                }
             }
         };
     }

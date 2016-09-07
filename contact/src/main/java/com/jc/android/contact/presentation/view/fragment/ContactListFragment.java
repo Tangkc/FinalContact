@@ -9,8 +9,12 @@ import android.view.ViewGroup;
 
 import com.jc.android.base.presentation.view.fragment.BaseFragment;
 import com.jc.android.contact.presentation.ContactListBinding;
+import com.jc.android.contact.presentation.model.ContactModel;
 import com.jc.android.contact.presentation.viewmodel.ContactListViewModel;
 import com.jc.android.module.contact.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Fragment that shows a list of Users.
@@ -18,7 +22,6 @@ import com.jc.android.module.contact.R;
 public class ContactListFragment extends BaseFragment<ContactListViewModel, ContactListBinding> {
 
     public final static String TAG = ContactListFragment.class.getSimpleName();
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
