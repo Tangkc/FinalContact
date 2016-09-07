@@ -81,9 +81,21 @@ public class ContactCenterActivity extends BackActivity {
         changeFragment(pageType);
     }
 
+    private Menu mMenu;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        mMenu = menu;
         getMenuInflater().inflate(R.menu.menu_contact_center, menu);
+
+        // 全选分组
+        mMenu.setGroupVisible(R.id.multiple, viewType == ContentBuilder.VIEW_TYPE_MULTIPLE);
+
+        // 保存按钮
+        mMenu.findItem(R.id.save).setVisible(viewType != ContentBuilder.VIEW_TYPE_SHOW);
+
+        // 排序分组
+        changeMenu();
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -112,7 +124,7 @@ public class ContactCenterActivity extends BackActivity {
         return true;
     }
 
-
+    // 改变当前fragment页
     private int curPageId = -1;
     private Fragment curFragment;
     public void changeFragment(int id) {
@@ -131,6 +143,15 @@ public class ContactCenterActivity extends BackActivity {
             transaction.commit();
 
             curPageId = id;
+            changeMenu();
+        }
+    }
+
+    // 改变排序菜单的显示和隐藏
+    private void changeMenu() {
+        if (mMenu != null) {
+            mMenu.findItem(R.id.show_flatten).setVisible(curPageId != ContentBuilder.PAGE_USER_LIST);
+            mMenu.findItem(R.id.show_tree).setVisible(curPageId != ContentBuilder.PAGE_USER_TREE);
         }
     }
 }
