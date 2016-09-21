@@ -1,6 +1,7 @@
 package com.jc.android.contact.presentation.viewmodel;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
@@ -27,14 +28,12 @@ import com.jc.android.contact.domain.interactor.GetContactList;
 import com.jc.android.contact.presentation.mapper.ContactModelDataMapper;
 import com.jc.android.contact.presentation.model.ContactModel;
 import com.jc.android.contact.presentation.view.activity.ContactDetailsActivity;
-import com.jc.android.contact.presentation.widget.CharacterParser;
 import com.jc.android.contact.presentation.widget.ClearEditText;
-import com.jc.android.contact.presentation.widget.PinyinComparator;
 import com.jc.android.contact.presentation.widget.SideBar;
 import com.jc.android.contact.presentation.view.adapter.SortGroupMemberAdapter;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Collection;
 import java.util.List;
 
 public class ContactListViewModel extends LoadingViewModel {
@@ -55,15 +54,30 @@ public class ContactListViewModel extends LoadingViewModel {
     private TextView title;
 
     GetContactList getUserList = new GetContactList(App.context());
-    ContactModelDataMapper demoModelDataMapper = new ContactModelDataMapper();
+    ContactModelDataMapper contactModelDataMapper = new ContactModelDataMapper();
     GetUser getUser = new GetUser(App.context());
 
-    @Command
-    public void loadUsersCommand(final ListView sortListView, TextView title, LinearLayout titleLayout) {
+    private Activity activity;
+    public ContactListViewModel(Activity activity) {
+        this.activity = activity;
+    }
 
+    @Command
+    public void loadContactsCommand(final ListView sortListView, TextView title, LinearLayout titleLayout) {
         this.sortListView = sortListView;
         this.title = title;
         this.titleLayout = titleLayout;
+
+        if (TextUtils.isEmpty(ContactCenterActivity.listIds)) {
+            loadContactsCloud();
+        } else {
+            loadContactsWithList();
+        }
+    }
+
+
+
+    private void loadContactsCloud() {
 
         if (showLoading.get()) {
             return;
@@ -73,14 +87,8 @@ public class ContactListViewModel extends LoadingViewModel {
         getUserList.setId(getUser.buildUseCaseObservable().getId() + "");
         getUserList.execute(new ProcessErrorSubscriber<List<Contact>>(App.context()) {
             @Override
-            public void onNext(List<Contact> demos) {
-                // 初始化数据
-                sourceDateList.clear();
-                sourceDateList.addAll(demoModelDataMapper.transformUsersWithLetter(demos));
-
-                // 展示页面
-                adapter.set(new SortGroupMemberAdapter(App.context(), sourceDateList));
-                sortListView.setAdapter(adapter.get());
+            public void onNext(List<Contact> contacts) {
+                initDate(contactModelDataMapper.transformUsersWithLetter(contacts));
             }
 
             @Override
@@ -93,6 +101,82 @@ public class ContactListViewModel extends LoadingViewModel {
 
     }
 
+    private void loadContactsWithList() {
+
+        List<Contact> contacts = new ArrayList<>();
+
+        String[] ids = ContactCenterActivity.listIds.split(",");
+        String[] names = ContactCenterActivity.listNames.split(",");
+        int length = Math.min(ids.length, names.length);
+        for (int i=0; i<length; ++i) {
+            if (TextUtils.isEmpty(ids[i]) || TextUtils.isEmpty(names[i])) {
+                continue;
+            }
+
+            try {
+                Contact model = new Contact();
+                model.setId(Long.valueOf(ids[i]));
+                model.setDisplayName(names[i]);
+                contacts.add(model);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        initDate(contactModelDataMapper.transformUsersWithLetter(contacts));
+    }
+
+    public void initDate(List<ContactModel> contacts) {
+
+        // TODO 可以优化
+        // 初始化选中
+        if (!ContactCenterActivity.isInitSelected) {
+            String[] selectedIds = ContactCenterActivity.selectedIds.split(",");
+            for (String id : selectedIds) {
+                if (TextUtils.isEmpty(id)) {
+                    continue;
+                }
+
+                for (ContactModel model:contacts) {
+                    if (id.equals(String.valueOf(model.getId()))) {
+                        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE && ContactCenterActivity.selected.size()>0) {
+                            break;
+                        }
+                        ContactCenterActivity.selected.put(model.getId(), model);
+                    }
+                }
+
+            }
+            ContactCenterActivity.isInitSelected = true;
+
+        } else {
+            // 切换视图的选中初始化
+            Collection<ContactModel> selectedModels = ContactCenterActivity.selected.values();
+            ContactCenterActivity.selected.clear();
+
+            for (ContactModel selected:selectedModels) {
+                for (ContactModel model:contacts) {
+                    if (selected.getId() == model.getId()) {
+                        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE && ContactCenterActivity.selected.size()>0) {
+                            break;
+                        }
+                        ContactCenterActivity.selected.put(model.getId(), model);
+                    }
+
+                }
+            }
+
+        }
+
+        // 初始化数据
+        sourceDateList.clear();
+        sourceDateList.addAll(contacts);
+
+        // 展示页面
+        adapter.set(new SortGroupMemberAdapter(App.context(), sourceDateList));
+        sortListView.setAdapter(adapter.get());
+    }
 
     /**
      * 根据ListView的当前位置获取分类的首字母的Char ascii值
@@ -225,9 +309,9 @@ public class ContactListViewModel extends LoadingViewModel {
             titleLayout.setVisibility(View.VISIBLE);
         }
 
-        adapter.get().updateListView(demoModelDataMapper.transformUsersWithFilter(sourceDateList, filterStr));
+        adapter.get().updateListView(contactModelDataMapper.transformUsersWithFilter(sourceDateList, filterStr));
 
-        showContentList.set(adapter.get().getList().size() == 0);
+        showContentList.set(sourceDateList.size() == 0);
     }
 
     /**
@@ -267,10 +351,22 @@ public class ContactListViewModel extends LoadingViewModel {
         return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadUsersCommand(sortListView, title, titleLayout);
-
+                loadContactsCommand(sortListView, title, titleLayout);
             }
         };
+    }
+
+
+    public void selectAll() {
+        for (ContactModel model:sourceDateList) {
+            ContactCenterActivity.selected.put(model.getId(), model);
+        }
+        adapter.get().notifyDataSetChanged();
+    }
+
+    public void cancelAll() {
+        ContactCenterActivity.selected.clear();
+        adapter.get().notifyDataSetChanged();
     }
 
 }

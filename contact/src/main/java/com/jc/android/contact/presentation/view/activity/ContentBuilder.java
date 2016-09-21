@@ -8,6 +8,9 @@ import android.widget.Toast;
 
 public class ContentBuilder {
 
+    // PARAM_TITLE
+    public static final String PARAM_TITLE = "PARAM_TITLE";
+
     // RAGE
     public static final String PARAM_PAGE_TYPE = "PARAM_PAGE_TYPE";
 
@@ -48,17 +51,28 @@ public class ContentBuilder {
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
     }
 
+    /**
+     *  页面类型
+     */
     public ContentBuilder page(int page) {
         intent.putExtra(PARAM_PAGE_TYPE, page);
         return this;
     }
 
+    /**
+     * 选择数量的范围
+     * @param min 最小数量
+     * @param max 最大数量
+     */
     public ContentBuilder range(int min, int max) {
         intent.putExtra(PARAM_RANGE_MIN, min);
         intent.putExtra(PARAM_RANGE_MAX, max);
         return this;
     }
 
+    /**
+     * 选择类型
+     */
     public ContentBuilder type(int type) {
         intent.putExtra(PARAM_VIEW_TYPE, type);
         return this;
@@ -87,7 +101,12 @@ public class ContentBuilder {
     }
 
     public ContentBuilder selected(String ids) {
-        intent.putExtra(PARAM_LIST_IDS, ids);
+        intent.putExtra(PARAM_SELECTED_IDS, ids);
+        return this;
+    }
+
+    public ContentBuilder title(String title) {
+        intent.putExtra(PARAM_TITLE, title);
         return this;
     }
 

@@ -27,13 +27,13 @@ import lombok.Getter;
 import retrofit2.http.POST;
 
 public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexer {
-    @Getter
+
     private List<ContactModel> list = new ArrayList<>();
     private Context mContext;
 
     public SortGroupMemberAdapter(Context mContext, @NonNull List<ContactModel> list) {
         this.mContext = mContext;
-        this.list.addAll(list);
+        this.list = list;
     }
 
     public void updateListView(List<ContactModel> list) {
@@ -54,7 +54,6 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
         return position;
     }
 
-    // TODO: 2016/7/29 头像加载未完成
     public View getView(final int position, View view, ViewGroup arg2) {
         ViewHolder viewHolder;
         final ContactModel model = list.get(position);

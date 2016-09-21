@@ -53,7 +53,7 @@ public class ContactModelDataMapper {
         String businessServer = getConfig.buildUseCase().getBusinessServer();
         ContactModel contactModel = new ContactModel();
         contactModel.setId(contact.getId());
-        contactModel.setPhoto(contact.getPhoto().length() > 0 ? businessServer + contact.getPhoto() : null);
+        contactModel.setPhoto(contact.getPhoto()!=null&&contact.getPhoto().length() > 0 ? businessServer + contact.getPhoto() : null);
         contactModel.setDeptId(contact.getDeptId());
         contactModel.setMobile(contact.getMobile());
         contactModel.setOrderNo(contact.getOrderNo());
