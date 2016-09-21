@@ -24,8 +24,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ContactCenterActivity extends BackActivity {
 
-    public static final int SELECTED_CONFIRM = 1;
-    public static final int SELECTED_CANCLE = 1;
+    public static final int SELECTED_CONFIRM = 1001;
+    public static final int SELECTED_CANCEL = 1002;
 
     public static final String SELECTED_IDS = "SELECTED_IDS";
     public static final String SELECTED_NAMES = "SELECTED_NAMES";
@@ -243,7 +243,7 @@ public class ContactCenterActivity extends BackActivity {
 
     @Override
     public void onBack() {
-        setResult(SELECTED_CANCLE, null);
+        setResult(SELECTED_CANCEL, null);
         super.onBack();
     }
 }
