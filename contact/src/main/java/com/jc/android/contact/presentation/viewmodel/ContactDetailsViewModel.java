@@ -14,6 +14,7 @@ import com.jc.android.contact.data.entity.Contact;
 import com.jc.android.contact.domain.interactor.GetContactDetails;
 import com.jc.android.contact.presentation.mapper.ContactModelDataMapper;
 import com.jc.android.contact.presentation.model.ContactModel;
+import com.jc.android.widget.presentation.viewmodel.ProcessErrorSubscriber;
 
 /**
  * Created by rocko on 15-11-5.

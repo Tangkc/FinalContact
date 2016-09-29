@@ -24,8 +24,8 @@ import com.jc.android.contact.presentation.model.ContactModel;
 import com.jc.android.contact.presentation.view.activity.ContactDetailsActivity;
 import com.jc.android.contact.presentation.view.holder.IconTreeItemHolder;
 import com.jc.android.contact.presentation.viewmodel.ContactListViewModel;
-import com.jc.android.contact.presentation.viewmodel.ProcessErrorSubscriber;
 import com.jc.android.module.contact.R;
+import com.jc.android.widget.presentation.viewmodel.ProcessErrorSubscriber;
 import com.unnamed.b.atv.model.TreeNode;
 import com.unnamed.b.atv.view.AndroidTreeView;
 

@@ -31,6 +31,7 @@ import com.jc.android.contact.presentation.view.activity.ContactDetailsActivity;
 import com.jc.android.contact.presentation.widget.ClearEditText;
 import com.jc.android.contact.presentation.widget.SideBar;
 import com.jc.android.contact.presentation.view.adapter.SortGroupMemberAdapter;
+import com.jc.android.widget.presentation.viewmodel.ProcessErrorSubscriber;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -85,7 +86,7 @@ public class ContactListViewModel extends LoadingViewModel {
 
         showLoading();
         getUserList.setId(getUser.buildUseCaseObservable().getId() + "");
-        getUserList.execute(new ProcessErrorSubscriber<List<Contact>>(App.context()) {
+        getUserList.execute(new ProcessErrorSubscriber<List<Contact>>() {
             @Override
             public void onNext(List<Contact> contacts) {
                 initDate(contactModelDataMapper.transformUsersWithLetter(contacts));
