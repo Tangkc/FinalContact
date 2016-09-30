@@ -33,6 +33,17 @@ public class MenuActivity extends BackActivity {
             }
         });
 
+        findViewById(R.id.show_un_org_split).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new ContentBuilder(MenuActivity.this)
+                        .page(ContentBuilder.PAGE_USER_TREE)
+                        .orgSplit(false)
+                        .intent();
+                ActivityNavigator.to(ContactListActivity.class, intent);
+            }
+        });
+
         findViewById(R.id.single).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -31,6 +31,9 @@ public class ContentBuilder {
     // SELECTED
     public static final String PARAM_SELECTED_IDS = "PARAM_SELECTED_IDS";
 
+    // 机构隔离
+    public static final String PARAM_ORG_SPLIT = "PARAM_ORG_SPLIT";
+
     // 页面类型
     public static final int PAGE_USER_LIST = 0; // 人员列表
     public static final int PAGE_USER_TREE = 1; // 人员树
@@ -107,6 +110,11 @@ public class ContentBuilder {
 
     public ContentBuilder title(String title) {
         intent.putExtra(PARAM_TITLE, title);
+        return this;
+    }
+
+    public ContentBuilder orgSplit(boolean isOrgSplit) {
+        intent.putExtra(PARAM_ORG_SPLIT, isOrgSplit);
         return this;
     }
 

@@ -1,16 +1,13 @@
 package com.jc.android.contact.presentation.view.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.jc.android.base.presentation.App;
 import com.jc.android.base.presentation.navigation.ActivityNavigator;
@@ -20,16 +17,15 @@ import com.jc.android.contact.data.entity.Contact;
 import com.jc.android.contact.data.entity.Dept;
 import com.jc.android.contact.domain.interactor.GetDeptContactList;
 import com.jc.android.contact.presentation.ContactTreeBinding;
-import com.jc.android.contact.presentation.model.ContactModel;
+import com.jc.android.contact.presentation.view.activity.ContactCenterActivity;
 import com.jc.android.contact.presentation.view.activity.ContactDetailsActivity;
 import com.jc.android.contact.presentation.view.holder.IconTreeItemHolder;
-import com.jc.android.contact.presentation.viewmodel.ContactListViewModel;
+import com.jc.android.logon.domain.interactor.GetUser;
 import com.jc.android.module.contact.R;
 import com.jc.android.widget.presentation.viewmodel.ProcessErrorSubscriber;
 import com.unnamed.b.atv.model.TreeNode;
 import com.unnamed.b.atv.view.AndroidTreeView;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -43,6 +39,8 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
     public final static String TAG = ContactTreeFragment.class.getSimpleName();
     private AndroidTreeView tView;
     private TreeNode root;
+
+    GetUser getUser = new GetUser(App.context());
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,7 +63,7 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
         super.onActivityCreated(savedInstanceState);
 
         GetDeptContactList getDeptContactList = new GetDeptContactList(App.context());
-        getDeptContactList.setId("1");
+        getDeptContactList.setId(ContactCenterActivity.isOrgSplit ? String.valueOf(getUser.buildUseCaseObservable().getId()) : "1");
         getDeptContactList.execute(new ProcessErrorSubscriber<List<Dept>>() {
             @Override
             public void onError(Throwable e) {
@@ -114,9 +112,9 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
     private void assembleTreeWithMap(@NonNull List<Dept> deptList, @NonNull TreeNode root) {
 
         Map<Long, List<Dept>> map = new HashMap<>();
-        for (Dept dept:deptList) {
+        for (Dept dept : deptList) {
             List<Dept> list = map.get(dept.getParentId());
-            if (list==null) {
+            if (list == null) {
                 list = new LinkedList<>();
                 map.put(dept.getParentId(), list);
             }
@@ -129,16 +127,16 @@ public class ContactTreeFragment extends BaseFragment<ViewModel, ContactTreeBind
 
     private void fillMap(TreeNode parent, Map<Long, List<Dept>> map, long parentId) {
         List<Dept> list = map.get(parentId);
-        if (list!=null) {
-            for (Dept dept:list) {
-                TreeNode child = new TreeNode(new IconTreeItemHolder.IconTreeItem(dept.getDeptType() == 1 ? R.string.ic_hotel : R.string.ic_flag, dept.getName(), dept.getId(),0));
+        if (list != null) {
+            for (Dept dept : list) {
+                TreeNode child = new TreeNode(new IconTreeItemHolder.IconTreeItem(dept.getDeptType() == 1 ? R.string.ic_hotel : R.string.ic_flag, dept.getName(), dept.getId(), 0));
                 parent.addChild(child);
 
                 fillMap(child, map, dept.getId());
 
                 //add person
-                if(dept.getUserList()!=null){
-                    for (Contact contact:dept.getUserList()) {
+                if (dept.getUserList() != null) {
+                    for (Contact contact : dept.getUserList()) {
                         TreeNode person = new TreeNode(new IconTreeItemHolder.IconTreeItem(R.string.ic_person, contact.getDisplayName(), contact.getId(), 1));
                         child.addChild(person);
                     }

@@ -85,7 +85,7 @@ public class ContactListViewModel extends LoadingViewModel {
         }
 
         showLoading();
-        getUserList.setId(getUser.buildUseCaseObservable().getId() + "");
+        getUserList.setId(ContactCenterActivity.isOrgSplit ? String.valueOf(getUser.buildUseCaseObservable().getId()) : "1");
         getUserList.execute(new ProcessErrorSubscriber<List<Contact>>() {
             @Override
             public void onNext(List<Contact> contacts) {

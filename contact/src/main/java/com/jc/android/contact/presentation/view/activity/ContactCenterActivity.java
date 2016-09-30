@@ -46,6 +46,8 @@ public class ContactCenterActivity extends BackActivity {
 
     public static String selectedIds = "";
 
+    public static boolean isOrgSplit = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +97,9 @@ public class ContactCenterActivity extends BackActivity {
         if (TextUtils.isEmpty(selectedIds)) {
             selectedIds = "";
         }
+
+        // 机构隔离
+        isOrgSplit = getIntent().getBooleanExtra(ContentBuilder.PARAM_ORG_SPLIT, true);
 
         // 标题
         ActionBar actionBar = getSupportActionBar();

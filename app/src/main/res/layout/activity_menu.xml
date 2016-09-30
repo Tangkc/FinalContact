@@ -17,6 +17,12 @@
         android:text="通讯录" />
 
     <Button
+        android:id="@+id/show_un_org_split"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通讯录-无机构隔离" />
+
+    <Button
         android:id="@+id/single"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
