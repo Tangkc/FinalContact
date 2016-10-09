@@ -140,6 +140,7 @@ public class ContactModelDataMapper {
         for (ContactModel model:models) {
             // 汉字转换成拼音
             String pinyin = characterParser.getSelling(model.getDisplayName());
+
             String sortString = pinyin.substring(0, 1).toUpperCase();
 
             // 正则表达式，判断首字母是否是英文字母

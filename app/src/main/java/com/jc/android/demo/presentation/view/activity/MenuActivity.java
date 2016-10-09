@@ -8,11 +8,17 @@ import android.widget.Toast;
 import com.jc.android.app.contact.R;
 import com.jc.android.base.presentation.App;
 import com.jc.android.base.presentation.navigation.ActivityNavigator;
-import com.jc.android.component.config.presentation.view.activity.ConfigActivity;
 import com.jc.android.contact.presentation.view.activity.ContactCenterActivity;
 import com.jc.android.contact.presentation.view.activity.ContactListActivity;
 import com.jc.android.contact.presentation.view.activity.ContentBuilder;
 import com.jc.android.widget.presentation.view.activity.BackActivity;
+
+import net.sourceforge.pinyin4j.PinyinHelper;
+import net.sourceforge.pinyin4j.format.HanyuPinyinCaseType;
+import net.sourceforge.pinyin4j.format.HanyuPinyinOutputFormat;
+import net.sourceforge.pinyin4j.format.HanyuPinyinToneType;
+
+import java.util.Arrays;
 
 public class MenuActivity extends BackActivity {
 
@@ -69,6 +75,13 @@ public class MenuActivity extends BackActivity {
                         .title("噜啦啦啦")
                         .intent();
                 startActivityForResult(intent, code);
+            }
+        });
+
+        findViewById(R.id.spelling).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

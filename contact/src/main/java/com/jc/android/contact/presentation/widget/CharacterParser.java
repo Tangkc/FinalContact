@@ -102,12 +102,13 @@ public class CharacterParser {
 		if (ascii > 0 && ascii < 160) {
 			result = String.valueOf((char) ascii);
 		} else {
-			for (int i = (pyvalue.length - 1); i >= 0; i--) {
-				if (pyvalue[i] <= ascii) {
-					result = pystr[i];
-					break;
-				}
-			}
+//			for (int i = (pyvalue.length - 1); i >= 0; i--) {
+//				if (pyvalue[i] <= ascii) {
+//					result = pystr[i];
+//					break;
+//				}
+//			}
+			result = PinyinUtils.getFull(str);
 		}
 		return result;
 	}
