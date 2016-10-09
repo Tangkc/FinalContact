@@ -33,7 +33,7 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 
     public SortGroupMemberAdapter(Context mContext, @NonNull List<ContactModel> list) {
         this.mContext = mContext;
-        this.list = list;
+        updateListView(list);
     }
 
     public void updateListView(List<ContactModel> list) {
