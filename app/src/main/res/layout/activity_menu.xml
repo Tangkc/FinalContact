@@ -40,4 +40,10 @@
         android:layout_height="wrap_content"
         android:text="pinyin" />
 
+    <Button
+        android:id="@+id/orgsplit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="机构选择" />
+
 </LinearLayout>

@@ -78,10 +78,17 @@ public class MenuActivity extends BackActivity {
             }
         });
 
-        findViewById(R.id.spelling).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.orgsplit).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new ContentBuilder(MenuActivity.this)
+                        .range(1, -1)
+                        .type(ContentBuilder.VIEW_TYPE_MULTIPLE)
+                        .page(ContentBuilder.PAGE_ORG_TREE)
+                        .selected(ids)
+                        .title("aaaa")
+                        .intent();
+                startActivityForResult(intent, code);
             }
         });
     }
