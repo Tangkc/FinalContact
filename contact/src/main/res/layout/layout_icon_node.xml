@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data parent="com.jc.android.contact.presentation.DemoDetailsBinding">
+
+        <import type="android.view.View" />
+
+        <import type="android.text.TextUtils" />
+
+        <variable
+            name="treeNode"
+            type="com.unnamed.b.atv.model.TreeNode"/>
+
+    </data>
+<RelativeLayout
     android:layout_width="match_parent"
     android:minHeight="48dp"
     android:background="?android:attr/selectableItemBackground"
@@ -37,11 +51,21 @@
         android:textSize="16sp"
         android:layout_marginStart="10dp"
         android:layout_toEndOf="@+id/icon"
-        android:layout_alignParentEnd="true"
         android:id="@+id/node_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
-
+    <CheckBox
+        android:id="@+id/icon_check_box"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/node_value"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:visibility="invisible"
+        android:buttonTint="#666666"
+        tools:visibility="visible" />
 
 
 </RelativeLayout>
+</layout>
