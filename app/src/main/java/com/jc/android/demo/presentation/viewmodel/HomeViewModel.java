@@ -25,7 +25,7 @@ public class HomeViewModel extends ViewModel {
 				Config config=new Config();
 				if (TextUtils.isEmpty(getConfig.buildUseCase().getBusinessServer())) {
 					PutConfig putConfig = new PutConfig(App.context());
-					putConfig.setBusinessServer("http://172.16.3.239:8180/goa/");
+					putConfig.setBusinessServer("http://172.16.3.16:7321/goa/");
 					putConfig.setUpdateServer("http://172.16.3.239:8089/");
 					putConfig.buildUseCase(config);
 				}

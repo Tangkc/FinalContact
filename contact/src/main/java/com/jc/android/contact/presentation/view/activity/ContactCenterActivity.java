@@ -241,7 +241,7 @@ public class ContactCenterActivity extends BackActivity {
     // 改变排序菜单的显示和隐藏
     private void changeMenu() {
         if (mMenu != null) {
-            mMenu.findItem(R.id.show_flatten).setVisible(viewType==ContentBuilder.VIEW_TYPE_SHOW && curPageId!=ContentBuilder.PAGE_USER_LIST);
+                mMenu.findItem(R.id.show_flatten).setVisible(viewType==ContentBuilder.VIEW_TYPE_SHOW && curPageId!=ContentBuilder.PAGE_USER_LIST);
             mMenu.findItem(R.id.show_tree   ).setVisible(viewType==ContentBuilder.VIEW_TYPE_SHOW && curPageId!=ContentBuilder.PAGE_USER_TREE);
         }
     }
