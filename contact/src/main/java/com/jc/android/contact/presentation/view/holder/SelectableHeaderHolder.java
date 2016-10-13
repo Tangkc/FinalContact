@@ -5,9 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.github.johnkil.print.PrintView;
+import com.jc.android.contact.presentation.view.activity.ContactCenterActivity;
+import com.jc.android.contact.presentation.view.activity.ContentBuilder;
 import com.jc.android.module.contact.R;
 import com.unnamed.b.atv.model.TreeNode;
 
@@ -19,6 +22,7 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
     private TextView tvValue;
     private PrintView arrowView;
     private CheckBox nodeSelector;
+
 
     public SelectableHeaderHolder(Context context) {
         super(context);
@@ -41,6 +45,7 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
         }
 
         nodeSelector = (CheckBox) view.findViewById(R.id.node_selector);
+
         nodeSelector.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -50,11 +55,13 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
         });
         nodeSelector.setChecked(node.isSelected());
 
+
         return view;
     }
 
     /**
      * 递归遍历出整个树的人员
+     *
      * @param treeNode
      * @param isSelect
      */
@@ -73,7 +80,7 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
 
     @Override
     public void toggleSelectionMode(boolean editModeEnabled) {
-        nodeSelector.setVisibility(editModeEnabled ? View.VISIBLE : View.GONE);
+        nodeSelector.setVisibility(editModeEnabled && ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_MULTIPLE ? View.VISIBLE : View.GONE);
         nodeSelector.setChecked(mNode.isSelected());
     }
 

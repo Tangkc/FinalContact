@@ -58,7 +58,7 @@ public class MenuActivity extends BackActivity {
                         .type(ContentBuilder.VIEW_TYPE_SINGLE)
                         .page(ContentBuilder.PAGE_USER_LIST)
                         .selected(ids)
-                        .list("1,2,3,4,5", "孙贺,张立刚,吴雪,刚哥,杨吉")
+                        //.list("1,2,3,4,5", "孙贺,张立刚,吴雪,刚哥,杨吉")
                         .intent();
                 startActivityForResult(intent, code);
             }
@@ -87,6 +87,20 @@ public class MenuActivity extends BackActivity {
                         .page(ContentBuilder.PAGE_ORG_TREE)
                         .selected(ids)
                         .title("aaaa")
+                        .intent();
+                startActivityForResult(intent, code);
+            }
+        });
+
+        findViewById(R.id.orgsplit_single).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new ContentBuilder(MenuActivity.this)
+                        .range(1, -1)
+                        .type(ContentBuilder.VIEW_TYPE_SINGLE)
+                        .page(ContentBuilder.PAGE_ORG_TREE)
+                        .selected(ids)
+                        .title("机构单选")
                         .intent();
                 startActivityForResult(intent, code);
             }

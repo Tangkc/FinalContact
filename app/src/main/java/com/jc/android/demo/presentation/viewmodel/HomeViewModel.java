@@ -39,5 +39,6 @@ public class HomeViewModel extends ViewModel {
 				ActivityNavigator.to(LoginActivity.class, intent);
 			}
 		};
+
 	}
 }

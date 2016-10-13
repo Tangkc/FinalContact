@@ -125,6 +125,7 @@ public class ContactCenterActivity extends BackActivity {
     }
 
     private Menu mMenu;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mMenu = menu;
@@ -133,11 +134,17 @@ public class ContactCenterActivity extends BackActivity {
         // 全选分组
         mMenu.setGroupVisible(R.id.multiple, viewType == ContentBuilder.VIEW_TYPE_MULTIPLE);
 
+        //机构选择按钮
+        mMenu.findItem(R.id.show_tree).setVisible(viewType == ContentBuilder.VIEW_TYPE_MULTIPLE || viewType == ContentBuilder.VIEW_TYPE_SINGLE);
+        mMenu.findItem(R.id.show_flatten).setVisible(false);
+
         // 保存按钮
         mMenu.findItem(R.id.save).setVisible(viewType != ContentBuilder.VIEW_TYPE_SHOW);
 
         // 排序分组
-        changeMenu();
+        if (viewType != ContentBuilder.VIEW_TYPE_MULTIPLE && viewType != ContentBuilder.VIEW_TYPE_SINGLE)
+            changeMenu();
+
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -147,26 +154,26 @@ public class ContactCenterActivity extends BackActivity {
 
         if (R.id.save == item.getItemId()) {
 
-            if (rangeMin>0 && rangeMin>selected.size()) {
+            if (rangeMin > 0 && rangeMin > selected.size()) {
                 Toast.makeText(this, "最少选择" + rangeMin + "条数据", Toast.LENGTH_SHORT).show();
                 return true;
             }
 
-            if (rangeMax>0 && rangeMax<selected.size()) {
+            if (rangeMax > 0 && rangeMax < selected.size()) {
                 Toast.makeText(this, "最多选择" + rangeMax + "条数据", Toast.LENGTH_SHORT).show();
                 return true;
             }
 
             StringBuilder stringIds = new StringBuilder();
             StringBuilder stringNames = new StringBuilder();
-            for (ContactModel model:selected.values()) {
+            for (ContactModel model : selected.values()) {
 
-                if (stringIds.length()>0) {
+                if (stringIds.length() > 0) {
                     stringIds.append(",");
                 }
                 stringIds.append(model.getId());
 
-                if (stringNames.length()>0) {
+                if (stringNames.length() > 0) {
                     stringNames.append(",");
                 }
                 stringNames.append(model.getDisplayName());
@@ -176,6 +183,7 @@ public class ContactCenterActivity extends BackActivity {
             intent.putExtra(SELECTED_IDS, stringIds.toString());
             intent.putExtra(SELECTED_NAMES, stringNames.toString());
             setResult(SELECTED_CONFIRM, intent);
+            ContactCenterActivity.selected.clear();
             finish();
 
         } else if (R.id.select_all == item.getItemId()) {
@@ -185,12 +193,18 @@ public class ContactCenterActivity extends BackActivity {
             getContactInterface().cancelAll();
 
         } else if (R.id.show_flatten == item.getItemId()) {
+            ContactCenterActivity.selected.clear();
             changeFragment(ContentBuilder.PAGE_USER_LIST);
+            mMenu.findItem(R.id.show_tree).setVisible(true);
+            mMenu.findItem(R.id.show_flatten).setVisible(false);
 
         } else if (R.id.show_tree == item.getItemId()) {
+            ContactCenterActivity.selected.clear();
             changeFragment(ContentBuilder.PAGE_USER_TREE);
+            mMenu.findItem(R.id.show_tree).setVisible(false);
+            mMenu.findItem(R.id.show_flatten).setVisible(true);
 
-        }  else {
+        } else {
             return super.onOptionsItemSelected(item);
         }
 
@@ -198,8 +212,8 @@ public class ContactCenterActivity extends BackActivity {
     }
 
     private IContactInterface getContactInterface() {
-        if (curFragment!=null && curFragment instanceof IContactInterface) {
-            return (IContactInterface)curFragment;
+        if (curFragment != null && curFragment instanceof IContactInterface) {
+            return (IContactInterface) curFragment;
         }
 
         return new IContactInterface() {
@@ -218,6 +232,7 @@ public class ContactCenterActivity extends BackActivity {
     // 改变当前fragment页
     private int curPageId = -1;
     private Fragment curFragment;
+
     public void changeFragment(int id) {
 
         if (curPageId != id) {
@@ -234,15 +249,16 @@ public class ContactCenterActivity extends BackActivity {
             transaction.commit();
 
             curPageId = id;
-            changeMenu();
+            if (viewType != ContentBuilder.VIEW_TYPE_MULTIPLE && viewType != ContentBuilder.VIEW_TYPE_SINGLE)
+                changeMenu();
         }
     }
 
     // 改变排序菜单的显示和隐藏
     private void changeMenu() {
         if (mMenu != null) {
-                mMenu.findItem(R.id.show_flatten).setVisible(viewType==ContentBuilder.VIEW_TYPE_SHOW && curPageId!=ContentBuilder.PAGE_USER_LIST);
-            mMenu.findItem(R.id.show_tree   ).setVisible(viewType==ContentBuilder.VIEW_TYPE_SHOW && curPageId!=ContentBuilder.PAGE_USER_TREE);
+            mMenu.findItem(R.id.show_flatten).setVisible(viewType == ContentBuilder.VIEW_TYPE_SHOW && curPageId != ContentBuilder.PAGE_USER_LIST);
+            mMenu.findItem(R.id.show_tree).setVisible(viewType == ContentBuilder.VIEW_TYPE_SHOW && curPageId != ContentBuilder.PAGE_USER_TREE);
         }
     }
 

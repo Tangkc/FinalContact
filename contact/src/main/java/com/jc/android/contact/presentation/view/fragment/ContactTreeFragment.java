@@ -53,7 +53,7 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
     private AndroidTreeView tView;
     private TreeNode root;
     private boolean isSelect;                 //是否进行人员选择
-    List<ContactModel> listContact = new ArrayList<>();
+    public static List<ContactModel> listContact = new ArrayList<>();
     List<TreeNode> list = new ArrayList<>();
     ContactModelDataMapper contactModelDataMapper = new ContactModelDataMapper();
     GetUser getUser = new GetUser(App.context());
@@ -63,6 +63,8 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
+
     }
 
     @Override
@@ -73,7 +75,7 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
         View rootView = getBinding().getRoot();
 
         //是否进行人员选择
-        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_MULTIPLE)
+        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_MULTIPLE || ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE)
             isSelect = true;
 
         if (savedInstanceState != null) {
@@ -90,7 +92,6 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
 
         GetDeptContactList getDeptContactList = new GetDeptContactList(App.context());
         getDeptContactList.setId(ContactCenterActivity.isOrgSplit ? String.valueOf(getUser.buildUseCaseObservable().getId()) : "1");
@@ -115,8 +116,8 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
 
                 tView.setDefaultNodeClickListener(nodeClickListener);
                 tView.setDefaultNodeLongClickListener(nodeLongClickListener);
+                //TreeNode 是否能选择
                 if (isSelect)
-
                     tView.setSelectionModeEnabled(true);
                 containerView.addView(tView.getView());
             }
@@ -126,6 +127,7 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
     @Override
     public void onResume() {
         super.onResume();
+
     }
 
     private TreeNode.TreeNodeClickListener nodeClickListener = new TreeNode.TreeNodeClickListener() {
@@ -223,7 +225,7 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
             StringBuilder stringNames = new StringBuilder();
             list = tView.getSelected();
             //防止选择根节点时，下面没有人员，会把管理员选上
-            if (!list.get(0).getChildren().isEmpty())
+            if (0 != list.size() && !list.get(0).getChildren().isEmpty())
                 list.remove(0);
             for (int i = 0; i < list.size(); i++) {
                 for (int j = 0; j < listContact.size(); j++) {
@@ -258,8 +260,10 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
             intent.putExtra(ContactCenterActivity.SELECTED_IDS, stringIds.toString());
             intent.putExtra(ContactCenterActivity.SELECTED_NAMES, stringNames.toString());
             getActivity().setResult(ContactCenterActivity.SELECTED_CONFIRM, intent);
+            ContactCenterActivity.selected.clear();
             getActivity().finish();
         }
+
         return true;
     }
 
@@ -268,6 +272,8 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
         menu.findItem(R.id.unselect_all).setVisible(false);
         menu.findItem(R.id.select_all).setVisible(false);
         menu.findItem(R.id.save).setVisible(false);
+        menu.findItem(R.id.show_flatten).setVisible(true);
+        menu.findItem(R.id.show_tree).setVisible(false);
         if (isSelect)
             inflater.inflate(R.menu.menu_treeselect_center, menu);
         super.onCreateOptionsMenu(menu, inflater);

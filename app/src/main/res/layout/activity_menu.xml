@@ -44,6 +44,12 @@
         android:id="@+id/orgsplit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="机构多选择" />
+
+    <Button
+        android:id="@+id/orgsplit_single"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="机构选择" />
 
 </LinearLayout>
