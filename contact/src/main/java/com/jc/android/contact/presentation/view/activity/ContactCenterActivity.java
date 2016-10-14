@@ -265,6 +265,7 @@ public class ContactCenterActivity extends BackActivity {
     @Override
     public void onBack() {
         setResult(SELECTED_CANCEL, null);
+        selected.clear();
         super.onBack();
     }
 }

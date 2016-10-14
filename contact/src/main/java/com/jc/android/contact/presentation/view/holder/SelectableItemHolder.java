@@ -62,7 +62,9 @@ public class SelectableItemHolder extends TreeNode.BaseNodeViewHolder<IconTreeIt
                 node.setSelected(isChecked);
             }
         });
-        nodeSelector.setChecked(node.isSelected());
+        //加单/多选判断 否则 RadioButton和CheckBox会使mNode发生很奇怪的现象
+        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_MULTIPLE)
+            nodeSelector.setChecked(node.isSelected());
         if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE)
             nodeRadio.setChecked(node.isSelected());
         return view;
@@ -73,7 +75,9 @@ public class SelectableItemHolder extends TreeNode.BaseNodeViewHolder<IconTreeIt
     public void toggleSelectionMode(boolean editModeEnabled) {
         nodeSelector.setVisibility(editModeEnabled && ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_MULTIPLE ? View.VISIBLE : View.GONE);
         nodeRadio.setVisibility(editModeEnabled && ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE ? View.VISIBLE : View.GONE);
-        nodeSelector.setChecked(mNode.isSelected());
+        //加单/多选判断 否则 RadioButton和CheckBox会使mNode发生很奇怪的现象
+        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_MULTIPLE)
+            nodeSelector.setChecked(mNode.isSelected());
         if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE)
             nodeRadio.setChecked(mNode.isSelected());
     }
