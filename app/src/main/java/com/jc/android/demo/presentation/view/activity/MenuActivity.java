@@ -68,7 +68,7 @@ public class MenuActivity extends BackActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new ContentBuilder(MenuActivity.this)
-                        .range(1, -1)
+                        .range(-1, -1)
                         .type(ContentBuilder.VIEW_TYPE_MULTIPLE)
                         .page(ContentBuilder.PAGE_USER_LIST)
                         .selected(ids)
@@ -82,9 +82,9 @@ public class MenuActivity extends BackActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new ContentBuilder(MenuActivity.this)
-                        .range(1, -1)
+                        .range(-1, -1)
                         .type(ContentBuilder.VIEW_TYPE_MULTIPLE)
-                        .page(ContentBuilder.PAGE_ORG_TREE)
+                        .page(ContentBuilder.PAGE_USER_TREE)
                         .selected(ids)
                         .title("aaaa")
                         .intent();
@@ -96,9 +96,9 @@ public class MenuActivity extends BackActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new ContentBuilder(MenuActivity.this)
-                        .range(1, -1)
+                        .range(-1, -1)
                         .type(ContentBuilder.VIEW_TYPE_SINGLE)
-                        .page(ContentBuilder.PAGE_ORG_TREE)
+                        .page(ContentBuilder.PAGE_USER_TREE)
                         .selected(ids)
                         .title("机构单选")
                         .intent();
@@ -113,7 +113,7 @@ public class MenuActivity extends BackActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == code) {
             if (resultCode == ContactCenterActivity.SELECTED_CONFIRM) {
-                if (data==null) {
+                if (data == null) {
                     return;
                 }
 

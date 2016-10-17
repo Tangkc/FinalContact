@@ -59,6 +59,7 @@ public class ContactListViewModel extends LoadingViewModel {
     GetUser getUser = new GetUser(App.context());
 
     private Activity activity;
+
     public ContactListViewModel(Activity activity) {
         this.activity = activity;
     }
@@ -75,7 +76,6 @@ public class ContactListViewModel extends LoadingViewModel {
             loadContactsWithList();
         }
     }
-
 
 
     private void loadContactsCloud() {
@@ -109,7 +109,7 @@ public class ContactListViewModel extends LoadingViewModel {
         String[] ids = ContactCenterActivity.listIds.split(",");
         String[] names = ContactCenterActivity.listNames.split(",");
         int length = Math.min(ids.length, names.length);
-        for (int i=0; i<length; ++i) {
+        for (int i = 0; i < length; ++i) {
             if (TextUtils.isEmpty(ids[i]) || TextUtils.isEmpty(names[i])) {
                 continue;
             }
@@ -119,7 +119,6 @@ public class ContactListViewModel extends LoadingViewModel {
                 model.setId(Long.valueOf(ids[i]));
                 model.setDisplayName(names[i]);
                 contacts.add(model);
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -139,9 +138,9 @@ public class ContactListViewModel extends LoadingViewModel {
                     continue;
                 }
 
-                for (ContactModel model:contacts) {
+                for (ContactModel model : contacts) {
                     if (id.equals(String.valueOf(model.getId()))) {
-                        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE && ContactCenterActivity.selected.size()>0) {
+                        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE && ContactCenterActivity.selected.size() > 0) {
                             break;
                         }
                         ContactCenterActivity.selected.put(model.getId(), model);
@@ -153,18 +152,19 @@ public class ContactListViewModel extends LoadingViewModel {
 
         } else {
             // 切换视图的选中初始化
-            Collection<ContactModel> selectedModels = ContactCenterActivity.selected.values();
+            List<ContactModel> selectedModels = new ArrayList<>();
+            selectedModels.addAll(ContactCenterActivity.selected.values());
+           // Collection<ContactModel> selectedModels = ContactCenterActivity.selected.values();
             ContactCenterActivity.selected.clear();
 
-            for (ContactModel selected:selectedModels) {
-                for (ContactModel model:contacts) {
+            for (ContactModel selected : selectedModels) {
+                for (ContactModel model : contacts) {
                     if (selected.getId() == model.getId()) {
-                        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE && ContactCenterActivity.selected.size()>0) {
+                        if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE && ContactCenterActivity.selected.size() > 0) {
                             break;
                         }
                         ContactCenterActivity.selected.put(model.getId(), model);
                     }
-
                 }
             }
 
@@ -359,7 +359,7 @@ public class ContactListViewModel extends LoadingViewModel {
 
 
     public void selectAll() {
-        for (ContactModel model:sourceDateList) {
+        for (ContactModel model : sourceDateList) {
             ContactCenterActivity.selected.put(model.getId(), model);
         }
         adapter.get().notifyDataSetChanged();

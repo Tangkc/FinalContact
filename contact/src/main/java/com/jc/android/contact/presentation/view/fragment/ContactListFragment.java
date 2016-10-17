@@ -39,7 +39,6 @@ public class ContactListFragment extends BaseFragment<ContactListViewModel, Cont
         super.onActivityCreated(savedInstanceState);
         getViewModel().loadContactsCommand(getBinding().countryLvcountry, getBinding().titleLayoutCatalog, getBinding().titleLayout);
         getViewModel().mClearEditTextClick(getBinding().filterEdit);
-
     }
 
     @Override

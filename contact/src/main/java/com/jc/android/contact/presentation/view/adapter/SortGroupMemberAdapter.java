@@ -37,8 +37,9 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
     }
 
     public void updateListView(List<ContactModel> list) {
-        this.list.clear();
-        this.list.addAll(list);
+//        this.list.clear();
+//        this.list.addAll(list);
+        this.list = list;
         notifyDataSetChanged();
     }
 
@@ -73,7 +74,7 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 
     public void onItemSelected(int pos) {
         ContactModel model = list.get(pos);
-        if (ContactCenterActivity.selected.get(model.getId())==null) {
+        if (ContactCenterActivity.selected.get(model.getId()) == null) {
             if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE) {
                 ContactCenterActivity.selected.clear();
             }
@@ -114,7 +115,7 @@ public class SortGroupMemberAdapter extends BaseAdapter implements SectionIndexe
 
             }
 
-            boolean isSelected = ContactCenterActivity.selected.get(model.getId())!=null;
+            boolean isSelected = ContactCenterActivity.selected.get(model.getId()) != null;
             radioButton.setChecked(isSelected);
             checkBox.setChecked(isSelected);
 

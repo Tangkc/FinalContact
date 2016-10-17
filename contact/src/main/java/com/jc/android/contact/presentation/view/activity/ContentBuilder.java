@@ -55,7 +55,7 @@ public class ContentBuilder {
     }
 
     /**
-     *  页面类型
+     * 页面类型
      */
     public ContentBuilder page(int page) {
         intent.putExtra(PARAM_PAGE_TYPE, page);
@@ -64,6 +64,7 @@ public class ContentBuilder {
 
     /**
      * 选择数量的范围
+     *
      * @param min 最小数量
      * @param max 最大数量
      */

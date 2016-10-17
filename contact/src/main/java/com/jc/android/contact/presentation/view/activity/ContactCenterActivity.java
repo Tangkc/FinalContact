@@ -144,6 +144,8 @@ public class ContactCenterActivity extends BackActivity {
         // 排序分组
         if (viewType != ContentBuilder.VIEW_TYPE_MULTIPLE && viewType != ContentBuilder.VIEW_TYPE_SINGLE)
             changeMenu();
+        if (listIds.length() > 2)
+            mMenu.findItem(R.id.show_tree).setVisible(false);
 
 
         return super.onCreateOptionsMenu(menu);
@@ -193,13 +195,19 @@ public class ContactCenterActivity extends BackActivity {
             getContactInterface().cancelAll();
 
         } else if (R.id.show_flatten == item.getItemId()) {
-            ContactCenterActivity.selected.clear();
+            //如果是单选切换界面时则清空选择
+//            if (viewType == ContentBuilder.VIEW_TYPE_SINGLE)
+//                ContactCenterActivity.selected.clear();
+            if (viewType == ContentBuilder.VIEW_TYPE_MULTIPLE)
+                ContactCenterActivity.selected.size();
             changeFragment(ContentBuilder.PAGE_USER_LIST);
             mMenu.findItem(R.id.show_tree).setVisible(true);
             mMenu.findItem(R.id.show_flatten).setVisible(false);
 
         } else if (R.id.show_tree == item.getItemId()) {
-            ContactCenterActivity.selected.clear();
+            //如果是单选切换界面时则清空选择
+//            if (viewType == ContentBuilder.VIEW_TYPE_SINGLE)
+//                ContactCenterActivity.selected.clear();
             changeFragment(ContentBuilder.PAGE_USER_TREE);
             mMenu.findItem(R.id.show_tree).setVisible(false);
             mMenu.findItem(R.id.show_flatten).setVisible(true);

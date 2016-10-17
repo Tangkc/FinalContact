@@ -11,8 +11,12 @@ import android.widget.TextView;
 import com.github.johnkil.print.PrintView;
 import com.jc.android.contact.presentation.view.activity.ContactCenterActivity;
 import com.jc.android.contact.presentation.view.activity.ContentBuilder;
+import com.jc.android.contact.presentation.view.fragment.ContactTreeFragment;
 import com.jc.android.module.contact.R;
 import com.unnamed.b.atv.model.TreeNode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,6 +26,7 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
     private TextView tvValue;
     private PrintView arrowView;
     private CheckBox nodeSelector;
+ //   List<TreeNode> list = new ArrayList<>();
 
 
     public SelectableHeaderHolder(Context context) {
@@ -51,13 +56,31 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 node.setSelected(isChecked);
                 setNodeSelector(node, isChecked);
+
             }
         });
+      //  setParentIs(node);
         nodeSelector.setChecked(node.isSelected());
 
 
         return view;
     }
+
+//    public void setParentIs(TreeNode node) {
+//        list = node.getChildren();
+//        if (!list.isEmpty()) {
+//            int trueNum = list.size();
+//            int Num = 0;
+//            for (int i = 0; i < list.size(); i++) {
+//                if (list.get(i).isSelected())
+//                    Num++;
+//            }
+//            if (trueNum == Num) {
+//                node.setSelected(true);
+//              setParentIs(node);
+//            }
+//        }
+//    }
 
     /**
      * 递归遍历出整个树的人员
@@ -70,6 +93,16 @@ public class SelectableHeaderHolder extends TreeNode.BaseNodeViewHolder<IconTree
             getTreeView().selectNode(n, isSelect);
             if (!n.getChildren().isEmpty())
                 setNodeSelector(n, isSelect);
+            else if (n.getChildren().isEmpty()) {
+                for (int j = 0; j < ContactTreeFragment.listContact.size(); j++) {
+                    if (((IconTreeItemHolder.IconTreeItem) n.getValue()).id == ContactTreeFragment.listContact.get(j).getId()) {
+                        if (isSelect)
+                            ContactCenterActivity.selected.put(ContactTreeFragment.listContact.get(j).getId(), ContactTreeFragment.listContact.get(j));
+                        else
+                            ContactCenterActivity.selected.remove(ContactTreeFragment.listContact.get(j).getId());
+                    }
+                }
+            }
         }
     }
 

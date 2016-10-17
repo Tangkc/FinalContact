@@ -63,8 +63,6 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-
-
     }
 
     @Override
@@ -128,8 +126,10 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
     public void onResume() {
         super.onResume();
 
+
     }
 
+    //默认点击事件
     private TreeNode.TreeNodeClickListener nodeClickListener = new TreeNode.TreeNodeClickListener() {
         @Override
         public void onClick(TreeNode node, Object value) {
@@ -137,6 +137,33 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
             if (item.type == 1 && !isSelect) {
                 Intent intent = ContactDetailsActivity.getCallingIntent(App.instance().getCurrentActivity(), item.id);
                 ActivityNavigator.to(ContactDetailsActivity.class, intent);
+            }
+        }
+    };
+
+    //选择时人的点击事件
+    private TreeNode.TreeNodeClickListener personClickListener = new TreeNode.TreeNodeClickListener() {
+        @Override
+        public void onClick(TreeNode node, Object value) {
+            boolean isCheck = node.isSelected();
+            if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_MULTIPLE) {
+                if (isCheck) {
+                    tView.selectNode(node, false);
+                    setValueToMap(node, false);
+                } else {
+                    tView.selectNode(node, true);
+                    setValueToMap(node, true);
+                }
+            }
+            if (ContactCenterActivity.viewType == ContentBuilder.VIEW_TYPE_SINGLE) {
+                if (!isCheck) {
+                    for (TreeNode treeNode : tView.getSelected()) {
+                        tView.selectNode(treeNode, false);
+                    }
+                    ContactCenterActivity.selected.clear();
+                }
+                tView.selectNode(node, true);
+                setValueToMap(node, true);
             }
         }
     };
@@ -191,8 +218,14 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
                         TreeNode person = new TreeNode(new IconTreeItem(R.string.ic_person, contact.getDisplayName(), contact.getId(), 1));
                         //进行人员选择时给TreeNode setViewHolder
                         if (isSelect) {
-                            listContact.add(contactModelDataMapper.transformUser(contact));
+                            // TODO: 2016/10/14 解决匹配问题 
+                            listContact.addAll(contactModelDataMapper.transformUsers(dept.getUserList()));
                             person.setViewHolder(new SelectableItemHolder(getActivity()));
+                            for (Long key : ContactCenterActivity.selected.keySet()) {
+                                if (contact.getId() == ContactCenterActivity.selected.get(key).getId())
+                                    person.setSelected(true);
+                            }
+                            person.setClickListener(personClickListener);
                         }
                         child.addChild(person);
                     }
@@ -201,6 +234,17 @@ public class ContactTreeFragment extends BaseFragment<ContactListViewModel, Cont
         }
     }
 
+
+    public void setValueToMap(TreeNode node, boolean isChecked) {
+        for (int j = 0; j < ContactTreeFragment.listContact.size(); j++) {
+            if (((IconTreeItemHolder.IconTreeItem) node.getValue()).id == ContactTreeFragment.listContact.get(j).getId()) {
+                if (isChecked)
+                    ContactCenterActivity.selected.put(ContactTreeFragment.listContact.get(j).getId(), ContactTreeFragment.listContact.get(j));
+                else
+                    ContactCenterActivity.selected.remove(ContactTreeFragment.listContact.get(j).getId());
+            }
+        }
+    }
 
     @Override
     public void selectAll() {
